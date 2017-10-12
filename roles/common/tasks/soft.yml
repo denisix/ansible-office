@@ -245,6 +245,4 @@
 - name: ring
   apt: name=ring state=latest force=yes install_recommends=yes update_cache=yes
   ignore_errors: yes
-  ignore_errors: yes
-
 
