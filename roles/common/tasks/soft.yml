@@ -31,22 +31,10 @@
 - name: install/update Thunderbird
   apt: name=thunderbird state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
-# Ring
-- name: key for ring
-  apt_key:
-    keyserver: pgp.mit.edu
-    id: A295D773307D25A33AE72F2F64CD5FA175348F84
-
-- name: repo for ring
-  apt_repository: repo='deb http://nightly.apt.ring.cx/ubuntu_16.04/ ring main' state=present
-  notify: apt update
-
-- name: ring
-  apt: name=ring state=latest force=yes install_recommends=yes update_cache=yes
-
 # Opera
 - name: key for opera repo
   apt_key: url=https://deb.opera.com/archive.key state=present
+  ignore_errors: yes
 
 - name: repo for opera
   apt_repository: repo='deb https://deb.opera.com/opera-stable/ stable non-free' state=present
@@ -169,6 +157,7 @@
 - name: skype repo sign
   apt_key: url=https://repo.skype.com/data/SKYPE-GPG-KEY state=present
   notify: apt update
+  ignore_errors: yes
 
 - name: install Skype
   apt: name=skypeforlinux state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
@@ -240,3 +229,22 @@
      responses:
        download: d
        license: y
+
+# Ring
+- name: key for ring
+  apt_key:
+    keyserver: pgp.mit.edu
+    id: A295D773307D25A33AE72F2F64CD5FA175348F84
+  ignore_errors: yes
+
+- name: repo for ring
+  apt_repository: repo='deb http://nightly.apt.ring.cx/ubuntu_16.04/ ring main' state=present
+  notify: apt update
+  ignore_errors: yes
+
+- name: ring
+  apt: name=ring state=latest force=yes install_recommends=yes update_cache=yes
+  ignore_errors: yes
+  ignore_errors: yes
+
+

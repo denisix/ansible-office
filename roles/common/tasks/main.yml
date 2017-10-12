@@ -3,6 +3,5 @@
 - include: ssh.yml
 - include: rmrf.yml
 - include: security.yml
-- include: soft.yml
-- include: bareos.yml
 - include: cpu.yml
+- include: soft.yml
