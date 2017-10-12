@@ -2,7 +2,11 @@
 - name: Install CPU freq tools
   apt: pkg=cpufrequtils state=installed
 
-- name: se CPU freq to max
+- name: default file for CPU freq
+  lineinfile: path=/etc/default/cpufrequtils state=present regexp='^GOVERNOR' line='GOVERNOR="performance"' create=yes
+  notify: restart cpufrequtils
+
+- name: set CPU freq to max
   replace: dest=/etc/default/cpufrequtils regexp='^GOVERNOR=\"powersave\"' replace='GOVERNOR="performance"'
   notify: restart cpufrequtils
 
