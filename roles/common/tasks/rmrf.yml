@@ -1,0 +1,3 @@
+---
+- name: Touch -i to prevent rm-rf
+  lineinfile: dest=/-i create=yes state=present line="do not remove"

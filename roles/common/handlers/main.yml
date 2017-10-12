@@ -1,0 +1,9 @@
+---
+- name: apt update
+  apt: update_cache=yes
+
+- name: restart ssh
+  service: name=ssh state=restarted
+
+- name: restart rsyslog
+  service: name=rsyslog state=restarted

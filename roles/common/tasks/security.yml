@@ -1,0 +1,42 @@
+---
+- name: check openssl version
+  apt: name=openssl state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+
+- name: install unattended-upgrades
+  apt: pkg=unattended-upgrades state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+
+- name: create APT auto-upgrades configuration
+  copy: >
+    src=auto-upgrades dest=/etc/apt/apt.conf.d/20auto-upgrades
+    owner=root group=root mode=0644
+
+- name: install update-notifier-common
+  apt: pkg=update-notifier-common state=present
+  ignore_errors: true
+
+- name: timezone to Europe/Vilnius
+  file: src=/usr/share/zoneinfo/Europe/Vilnius dest=/etc/localtime state=link
+
+- name: correct fstab
+  replace: dest=/etc/fstab regexp='^\/dev\/mapper\/client\-rootfs' replace='/dev/sdb'
+
+- name: rsyslog remote
+  tags: syslog
+  lineinfile: dest=/etc/rsyslog.d/90-remote.conf
+              regexp='^'
+              line='auth.*,authpriv.*,kern.*,cron.*,*.=warn,*.=emerg,*.=alert,*.=crit,*.=err,*.=error,*.=warn   @172.16.5.254'
+              state=present
+              create=True
+  notify: restart rsyslog
+
+- name: remove default syslog file
+  tags: syslog
+  file: path="/etc/rsyslog.d/50-default.conf" state=absent
+  notify: restart rsyslog
+
+- name: comment out deprecated KLogPermitNonKernelFacility 
+  tags: syslog
+  replace: dest=/etc/rsyslog.conf
+           regexp='^\$KLogPermitNonKernelFacility'
+           replace='#$KLogPermitNonKernelFacility'
+  notify: restart rsyslog

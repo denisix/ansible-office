@@ -1,0 +1,7 @@
+#!/bin/sh
+VER="52.0.2esr"
+test -f ~/firefox-$VER.tar.bz2 || wget -c -O ~/firefox-$VER.tar.bz2 https://ftp.mozilla.org/pub/firefox/releases/$VER/linux-x86_64/ru/firefox-$VER.tar.bz2
+
+cd /tmp
+tar jxvf ~/firefox-$VER.tar.bz2
+/tmp/firefox/firefox --new-instance -P java https://172.16.3.3:65043

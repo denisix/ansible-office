@@ -1,0 +1,11 @@
+---
+- apt: name=openssh-server state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  notify: restart ssh
+
+- name: Change ssh port
+  lineinfile: dest=/etc/ssh/sshd_config
+              regexp="^Port\s"
+              line="Port 65022"
+              state=present
+  notify: restart ssh
+
