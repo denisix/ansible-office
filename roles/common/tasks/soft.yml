@@ -2,19 +2,19 @@
 
 # Whois
 - name: whois
-  apt: name=whois state=latest force=yes install_recommends=yes update_cache=yes
+  apt: name=whois state=latest force=yes install_recommends=yes
 
 # MTR
 - name: mtr
-  apt: name=mtr state=latest force=yes install_recommends=yes update_cache=yes
+  apt: name=mtr state=latest force=yes install_recommends=yes
 
 # Atop
 - name: atop
-  apt: name=atop state=latest force=yes install_recommends=yes update_cache=yes
+  apt: name=atop state=latest force=yes install_recommends=yes
 
 # Mplayer
 - name: mplayer
-  apt: name=mplayer state=latest force=yes install_recommends=yes update_cache=yes
+  apt: name=mplayer state=latest force=yes install_recommends=yes
 
 # Firefox
 - name: repo for firefox
@@ -26,10 +26,16 @@
   notify: apt update
 
 - name: install/update Firefox
-  apt: name=firefox state=latest force=yes install_recommends=yes update_cache=yes
+  apt: name=firefox state=latest force=yes install_recommends=yes
+
+- name: Firefox locale RU
+  apt: name=firefox-locale-ru state=latest force=yes install_recommends=yes
 
 - name: install/update Thunderbird
-  apt: name=thunderbird state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=thunderbird state=latest cache_valid_time=86400 force=yes install_recommends=yes
+
+- name: Thunderbird locale RU
+  apt: name=thunderbird-locale-ru state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Opera
 - name: key for opera repo
@@ -40,9 +46,8 @@
   apt_repository: repo='deb https://deb.opera.com/opera-stable/ stable non-free' state=present
   notify: apt update
 
-
 - name: install/update Opera
-  apt: name=opera-stable state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=opera-stable state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Chromium
 #- name: repo for chromium
@@ -50,30 +55,30 @@
 #  notify: apt update
 
 - name: install/update Chromium
-  apt: name=chromium-browser state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=chromium-browser state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 
 
 # Flash
 #- name: flash player
-#  apt: name=adobe-flashplugin state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+#  apt: name=adobe-flashplugin state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Java
 - name: java jre
   tags: java
-  apt: name=default-jre state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=default-jre state=latest cache_valid_time=86400 force=yes install_recommends=yes
   async: 900
   poll: 10
 
 - name: java jdk
   tags: java
-  apt: name=default-jdk state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=default-jdk state=latest cache_valid_time=86400 force=yes install_recommends=yes
   async: 900
   poll: 10
 
 - name: IceD tea
   tags: java
-  apt: name=icedtea-8-plugin state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=icedtea-8-plugin state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: set licence selected
   tags: java
@@ -90,11 +95,11 @@
 
 - name: oracle java 8
   tags: java
-  apt: name=oracle-java8-installer state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=oracle-java8-installer state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: oracle java 8 set default
   tags: java
-  apt: name=oracle-java8-set-default state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=oracle-java8-set-default state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: java 8 security file
   tags: java
@@ -133,21 +138,21 @@
 
 # Jabber
 - name: install/update pidgin
-  apt: name=pidgin state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=pidgin state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: install/update pidgin otr
-  apt: name=pidgin-otr state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=pidgin-otr state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: install/update psi+
-  apt: name=psi-plus state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=psi-plus state=latest cache_valid_time=86400 force=yes install_recommends=yes
   when: ansible_fqdn != "dt"
 
 - name: install Pulseaudio
-  apt: name=pulseaudio state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=pulseaudio state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # LibreOffice
 - name: install LibreOffice
-  apt: name=libreoffice state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=libreoffice state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Skype
 - name: skype repo
@@ -160,7 +165,7 @@
   ignore_errors: yes
 
 - name: install Skype
-  apt: name=skypeforlinux state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=skypeforlinux state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Mate
 - name: add repo for mate
@@ -170,49 +175,49 @@
 
 # Mate install
 - name: mate core install
-  apt: name=ubuntu-mate-core state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=ubuntu-mate-core state=latest cache_valid_time=86400 force=yes install_recommends=yes
   when: ansible_fqdn != "dt"
 
 - name: mate desktop install
-  apt: name=ubuntu-mate-desktop state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=ubuntu-mate-desktop state=latest cache_valid_time=86400 force=yes install_recommends=yes
   when: ansible_fqdn != "dt"
 
 # RDP tools
 - name: remmina install
-  apt: name=remmina state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=remmina state=latest cache_valid_time=86400 force=yes install_recommends=yes
   when: ansible_fqdn != "dt"
 
 - name: rdp
-  apt: name=rdesktop state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=rdesktop state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Languages
 - name: lang pack en
-  apt: name=language-pack-en state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=language-pack-en state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: lang pack ru
-  apt: name=language-pack-ru state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=language-pack-ru state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # PDF
 - name: pdf xournal
-  apt: name=xournal state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=xournal state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: qpdf
-  apt: name=qpdf state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=qpdf state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Gobby
 - name: gobby
-  apt: name=gobby state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=gobby state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # VLC
 - name: vlc
-  apt: name=vlc state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=vlc state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Printer HP setup
 - name: printer HP tools
-  apt: name=hplip state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=hplip state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: install expect module
-  apt: name=python-pexpect state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: name=python-pexpect state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 - name: check if HP printer configured
   tags: hp
@@ -243,6 +248,6 @@
   ignore_errors: yes
 
 - name: ring
-  apt: name=ring state=latest force=yes install_recommends=yes update_cache=yes
+  apt: name=ring state=latest force=yes install_recommends=yes
   ignore_errors: yes
 
