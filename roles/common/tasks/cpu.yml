@@ -3,7 +3,7 @@
   apt: pkg=cpufrequtils state=installed
 
 - name: default file for CPU freq
-  lineinfile: path=/etc/default/cpufrequtils state=present regexp='^GOVERNOR' line='GOVERNOR="performance"' create=yes
+  lineinfile: dest=/etc/default/cpufrequtils state=present regexp='^GOVERNOR' line='GOVERNOR="performance"' create=yes
   notify: restart cpufrequtils
 
 - name: set CPU freq to max
