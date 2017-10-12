@@ -1,0 +1,10 @@
+---
+- name: Install CPU freq tools
+  apt: pkg=cpufrequtils state=installed
+
+- name: se CPU freq to max
+  replace: dest=/etc/default/cpufrequtils regexp='^GOVERNOR=\"powersave\"' replace='GOVERNOR="performance"'
+  notify: restart cpufrequtils
+
+- name: disable CPU ondemand
+  service: name=ondemand enabled=no
