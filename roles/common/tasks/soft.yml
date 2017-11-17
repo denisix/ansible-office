@@ -16,6 +16,10 @@
 - name: mplayer
   apt: name=mplayer state=latest force=yes install_recommends=yes
 
+# Scan
+- name: simple scan
+  apt: name=simple-scan state=latest force=yes install_recommends=yes
+
 # Firefox
 - name: repo for firefox
   apt_repository: repo='ppa:ubuntu-mozilla-daily/ppa' state=present
