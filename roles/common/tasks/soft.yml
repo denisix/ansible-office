@@ -8,6 +8,10 @@
 - name: mtr
   apt: name=mtr state=latest force=yes install_recommends=yes
 
+# DIG
+- name: dig_install
+  apt: name=dnsutils state=latest force=yes install_recommends=yes
+
 # Atop
 - name: atop
   apt: name=atop state=latest force=yes install_recommends=yes
