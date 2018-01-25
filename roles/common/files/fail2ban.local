@@ -1,4 +1,4 @@
 [sshd]
 enabled = true
 port = 65022
-action = iptables[name=SSH, port=65022, protocol=tcp]
+action = iptables[name=sshd, port=65022, protocol=tcp]
