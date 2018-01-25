@@ -57,19 +57,8 @@
 - name: install/update Opera
   apt: name=opera-stable state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
-# Chromium
-#- name: repo for chromium
-#  apt_repository: repo='ppa:webapps/preview' state=present
-#  notify: apt update
-
 - name: install/update Chromium
   apt: name=chromium-browser state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-
-
-# Flash
-#- name: flash player
-#  apt: name=adobe-flashplugin state=latest cache_valid_time=86400 force=yes install_recommends=yes
 
 # Java
 - name: java jre
@@ -143,6 +132,15 @@
   copy: >
     src=kvm dest=/usr/local/bin/kvm
     owner=root group=root mode=0755
+
+# RealVNC client from official website
+- name: realvnc download
+  get_url: url="https://www.realvnc.com/download/file/viewer.files/VNC-Viewer-6.17.1113-Linux-x64.deb"
+  dest="/var/cache/apt/archives/realvnc.deb"
+  ignore_errors: yes
+
+- name: realvnc install
+  apt: deb="/var/cache/apt/archives/realvnc.deb" state=present 
 
 # Jabber
 - name: install/update pidgin
@@ -259,3 +257,6 @@
   apt: name=ring state=latest force=yes install_recommends=yes
   ignore_errors: yes
 
+- name: keyboard switch
+  apt: name=gxkb state=latest force=yes install_recommends=yes
+  ignore_errors: yes
