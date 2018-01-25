@@ -22,6 +22,7 @@
   copy: >
           src=sshd.jail dest=/etc/fail2ban/jail.d/sshd.local
           owner=root group=root mode=0644
+  notify: restart fail2ban
 
 - name: timezone to Europe/Vilnius
   file: src=/usr/share/zoneinfo/Europe/Vilnius dest=/etc/localtime state=link
