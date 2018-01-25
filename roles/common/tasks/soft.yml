@@ -248,7 +248,7 @@
   ignore_errors: yes
 
 - name: repo for ring
-  apt_repository: repo='deb http://nightly.apt.ring.cx/ubuntu_16.04/ ring main' state=present
+  apt_repository: repo='deb https://dl.ring.cx/ring-nightly/ubuntu_16.04/ ring main' state=present
   notify: apt update
   ignore_errors: yes
 
