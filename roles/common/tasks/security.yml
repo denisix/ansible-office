@@ -20,7 +20,7 @@
 
 - name: fail2ban ssh enable with custom conf file
   copy: >
-          src=sshd.jail dest=/etc/fail2ban/jail.d/sshd.local
+          src=fail2ban.local dest=/etc/fail2ban/jail.d/defaults-debian.conf
           owner=root group=root mode=0644
   notify: restart fail2ban
 
