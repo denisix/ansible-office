@@ -135,8 +135,7 @@
 
 # RealVNC client from official website
 - name: realvnc download
-  get_url: url="https://www.realvnc.com/download/file/viewer.files/VNC-Viewer-6.17.1113-Linux-x64.deb"
-  dest="/var/cache/apt/archives/realvnc.deb"
+  get_url: url="https://www.realvnc.com/download/file/viewer.files/VNC-Viewer-6.17.1113-Linux-x64.deb" dest="/var/cache/apt/archives/realvnc.deb"
   ignore_errors: yes
 
 - name: realvnc install
