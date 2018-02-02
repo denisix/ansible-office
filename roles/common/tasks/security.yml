@@ -50,3 +50,9 @@
            regexp='^\$KLogPermitNonKernelFacility'
            replace='#$KLogPermitNonKernelFacility'
   notify: restart rsyslog
+
+- name: clean man-db daily tasks
+  file: path=/etc/cron.daily/man-db state=absent
+
+- name: clean man-db weekly tasks
+  file: path=/etc/cron.weekly/man-db state=absent
