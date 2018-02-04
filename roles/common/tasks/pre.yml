@@ -26,3 +26,19 @@
   copy: >
     src=tune-ssd dest=/usr/local/sbin/tune-ssd owner=root group=root mode=0755
   notify: exec rc-local
+
+- name: force caching to RAM: dirty_ratio => 99%
+  lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_ratio = 99"
+  notify: update sysctl
+
+- name: force caching to RAM: dirty_background_ratio => 50%
+  lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_background_ratio = 50"
+  notify: update sysctl
+
+- name: force caching to RAM: dirty_expire_centisecs => up to 30min write delay
+  lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_expire_centisecs = 1800"
+  notify: update sysctl
+
+- name: force caching to RAM: dirty_writeback_centisecs => up to 30min write delay
+  lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_writeback_centisecs = 1800"
+  notify: update sysctl
