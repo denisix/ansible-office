@@ -22,6 +22,7 @@
   copy: >
     src=rc.local dest=/etc/rc.local owner=root group=root mode=0755
 
-- name: >
+- name: tune-ssd script
+  copy: >
     src=tune-ssd dest=/usr/local/sbin/tune-ssd owner=root group=root mode=0755
   notify: exec rc-local
