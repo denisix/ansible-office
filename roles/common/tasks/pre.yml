@@ -3,8 +3,7 @@
 
 - name: APT sources
   copy: >
-    src=sources.list dest=/etc/apt/sources.list
-    owner=root group=root mode=0644
+    src=sources.list dest=/etc/apt/sources.list owner=root group=root mode=0644
   notify: apt update
 
 - name: apt HTTPs?
@@ -21,10 +20,8 @@
 
 - name: rc.local
   copy: >
-    src=rc.local dest=/etc/rc.local
-    owner=root group=root mode=0755
+    src=rc.local dest=/etc/rc.local owner=root group=root mode=0755
 
 - name: >
-    src=tune-ssd dest=/usr/local/sbin/tune-ssd
-    owner=root group=root mode=0755
+    src=tune-ssd dest=/usr/local/sbin/tune-ssd owner=root group=root mode=0755
   notify: exec rc-local
