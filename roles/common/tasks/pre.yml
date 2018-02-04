@@ -19,3 +19,12 @@
 - name: kernel audio
   apt: pkg=linux-sound-base state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
+- name: rc.local
+  copy: >
+    src=rc.local dest=/etc/rc.local
+    owner=root group=root mode=0755
+
+- name: >
+    src=tune-ssd dest=/usr/local/sbin/tune-ssd
+    owner=root group=root mode=0755
+  notify: exec rc-local

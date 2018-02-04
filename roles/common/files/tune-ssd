@@ -1,0 +1,2 @@
+#!/bin/sh
+echo noop > /sys/block/sdb/queue/scheduler
