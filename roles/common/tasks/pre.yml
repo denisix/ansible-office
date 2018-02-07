@@ -13,7 +13,7 @@
   apt: pkg=linux-headers-4.13.0-30-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
 - name: kernel extra
-  apt: pkg=linux-image-extra-4.13.0-30-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: pkg=linux-image-4.13.0-30-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
 - name: kernel audio
   apt: pkg=linux-sound-base state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
