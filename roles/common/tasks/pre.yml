@@ -10,10 +10,10 @@
   apt: pkg=apt-transport-https state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
 - name: kernel headers
-  apt: pkg=linux-headers-4.4.0-31 state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: pkg=linux-headers-4.13.0-30-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
 - name: kernel extra
-  apt: pkg=linux-image-extra-4.4.0-31-generic state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: pkg=linux-image-extra-4.13.0-30-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
 - name: kernel audio
   apt: pkg=linux-sound-base state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
@@ -27,18 +27,18 @@
     src=tune-ssd dest=/usr/local/sbin/tune-ssd owner=root group=root mode=0755
   notify: exec rc-local
 
-- name: force caching to RAM: dirty_ratio to 99%
+- name: force caching to RAM: dirty_ratio to 99 perc
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_ratio = 99"
   notify: update sysctl
 
-- name: force caching to RAM: dirty_background_ratio => 50%
+- name: force caching to RAM: dirty_background_ratio 50 perc
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_background_ratio = 50"
   notify: update sysctl
 
-- name: force caching to RAM: dirty_expire_centisecs => up to 30min write delay
+- name: force caching to RAM: dirty_expire_centisecs to 30min write delay
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_expire_centisecs = 1800"
   notify: update sysctl
 
-- name: force caching to RAM: dirty_writeback_centisecs => up to 30min write delay
+- name: force caching to RAM: dirty_writeback_centisecs to 30min write delay
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_writeback_centisecs = 1800"
   notify: update sysctl
