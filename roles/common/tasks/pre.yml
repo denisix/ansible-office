@@ -27,7 +27,7 @@
     src=tune-ssd dest=/usr/local/sbin/tune-ssd owner=root group=root mode=0755
   notify: exec rc-local
 
-- name: force caching to RAM: dirty_ratio => 99%
+- name: force caching to RAM: dirty_ratio to 99%
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_ratio = 99"
   notify: update sysctl
 

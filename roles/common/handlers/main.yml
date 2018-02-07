@@ -16,3 +16,6 @@
 
 - name: exec rc-local
   shell: /etc/rc.local
+
+- name: update sysctl
+  shell: /sbin/sysctl -p
