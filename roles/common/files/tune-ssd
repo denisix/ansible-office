@@ -1,2 +1,10 @@
 #!/bin/sh
+
+# i/o scheduler
 echo noop > /sys/block/sdb/queue/scheduler
+
+# I/O queue
+echo 1024 > /sys/block/sdb/queue/nr_requests
+
+# read-ahead
+hdparm -a 2048 /dev/sdb
