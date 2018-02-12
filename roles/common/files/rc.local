@@ -13,6 +13,7 @@
 
 # ssd-over-iscsi tune
 /usr/local/sbin/tune-ssd
+[ -x "/usr/local/sbin/start" ] && /usr/local/sbin/start
 
 exit 0
 
