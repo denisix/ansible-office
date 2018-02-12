@@ -16,6 +16,10 @@
 - name: atop
   apt: name=atop state=latest force=yes install_recommends=yes
 
+# arch
+- name: xarchiver
+  apt: name=xarchiver state=latest force=yes install_recommends=yes
+
 # rar
 - name: rar
   apt: name=rar state=latest force=yes install_recommends=yes
