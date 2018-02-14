@@ -255,3 +255,8 @@
 - name: keyboard switch
   apt: name=gxkb state=latest force=yes install_recommends=yes
   ignore_errors: yes
+
+- name: specs
+  copy: >
+    src=specs dest=/usr/local/bin/specs
+    owner=root group=root mode=0755
