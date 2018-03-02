@@ -1,0 +1,81 @@
+#!/usr/bin/perl
+use strict;
+# This source code is available under MIT License
+# for any info please write to denisix aka gmail.com
+#
+
+my $mobo;
+my $socket;
+my $cpu;
+my $ram;
+my $ram_total = 0;
+
+my $type;
+my $size = 0;
+open IO, 'dmidecode|';
+while(<IO>) {
+    next if /Handle \d+x\d+/;
+
+    if (/^(\S+.*)/) {
+        $type = $1;
+        next;
+    }
+
+    # board
+    if ($type =~ /Base Board/) {
+        if (/Manufacturer:\s+(.+)/) { $mobo = $1; }
+        if (/Product Name:\s+(.+)/) { $mobo .= ' '. $1; }
+        if (/Version:\s+(.+)/) { $mobo .= ' '. $1; }
+    }
+
+    # cpu
+    if ($type =~ /Processor Information/) {
+        if (/Socket Designation:\s+(.+)/) { $socket = $1; }
+        if (/Version:\s+(.+)/) { $cpu = $1; }
+        if ($cpu !~ /\@/ && /Family:\s+(.+)/) { $cpu = $1; }
+    }
+
+    # ram
+    if ($type =~ /Memory Device/) {
+
+		my $size;
+        if (!/Range/ && /Size:\s+(\d+)\s+(\w+)/) {
+            $size = $1;
+            my $unit = $2;
+
+            if ($unit =~ /kb/i) { $size /= 1048576; }
+            if ($unit =~ /mb/i) { $size /= 1024; }
+
+            $ram .= '|'. $size;
+            $ram_total += $size;
+        }
+
+        if ($size > 0) {
+            if (!/Bank/ && /Locator:\s+(.+)/) { $ram .= '/'. $1; }
+            if (!/Clock/ && /Speed:\s+(\d+)\s+MHz/i) { $ram .= '/'. $1; }
+            if (/Manufacturer:\s+(.+)/) { $ram .= '/'. $1; }
+            if (/Part Number:\s+(\S+)/) { $ram .= '/'. $1; $size = 0; }
+        }
+    }
+}
+close IO;
+chop $ram;
+$ram =~ s/^\|//;
+if ($socket eq $cpu) { $socket = 'internal'; }
+
+# HDDs
+my $hdd;
+foreach my $p (<"/sys/block/*/device">) {
+    $p =~ s/device$//;
+	my $model;
+    open IO, "<$p/size"; $size = int( (<IO> * 512) / 1000000000); close IO;
+    open IO, "<$p/device/model"; $model = <IO>; chop $model; close IO;
+
+    $hdd .= "$size/$model|";
+}
+chop $hdd;
+
+my $green = "\e[32m";
+my $nocolor = "\e[0m";
+
+print $green, "\nMobo: $mobo\nSock: $socket\nCPU: $cpu\nHDD: $hdd\nRAMs: $ram\nRAM: $ram_total GB\n\n", $nocolor;
