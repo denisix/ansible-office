@@ -8,3 +8,6 @@ echo 1024 > /sys/block/sdb/queue/nr_requests
 
 # read-ahead
 hdparm -a 2048 /dev/sdb
+
+# sleep for first HDD drive
+hdparm -Y /dev/sda
