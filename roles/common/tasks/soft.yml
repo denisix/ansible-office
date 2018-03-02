@@ -237,20 +237,20 @@
        license: y
 
 # Ring
-- name: key for ring
-  apt_key:
-    keyserver: pgp.mit.edu
-    id: A295D773307D25A33AE72F2F64CD5FA175348F84
-  ignore_errors: yes
+#- name: key for ring
+#  apt_key:
+#    keyserver: pgp.mit.edu
+#    id: A295D773307D25A33AE72F2F64CD5FA175348F84
+#  ignore_errors: yes
 
-- name: repo for ring
-  apt_repository: repo='deb https://dl.ring.cx/ring-nightly/ubuntu_16.04/ ring main' state=present
-  notify: apt update
-  ignore_errors: yes
+#- name: repo for ring
+#  apt_repository: repo='deb https://dl.ring.cx/ring-nightly/ubuntu_16.04/ ring main' state=present
+#  notify: apt update
+#  ignore_errors: yes
 
-- name: ring
-  apt: name=ring state=latest force=yes install_recommends=yes
-  ignore_errors: yes
+#- name: ring
+#  apt: name=ring state=latest force=yes install_recommends=yes
+#  ignore_errors: yes
 
 - name: keyboard switch
   apt: name=gxkb state=latest force=yes install_recommends=yes
@@ -260,3 +260,17 @@
   copy: >
     src=specs dest=/usr/local/bin/specs
     owner=root group=root mode=0755
+
+- name: syncthing key
+  apt_key:
+    url: https://syncthing.net/release-key.txt
+    state: present
+
+- name: syncthing repo
+  apt_repository:
+    repo: deb https://apt.syncthing.net/ syncthing stable
+    state: present
+  notify: apt update
+
+- name: syncthing install
+  apt: name=syncthing state=latest force=yes install_recommends=yes
