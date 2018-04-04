@@ -18,5 +18,5 @@ cd /home/;
 for i in *
 do
 	mkdir -p /var/tmp/$i/cache
-	chown $i /var/tmp/$i
+	chown $i -R /var/tmp/$i
 done
