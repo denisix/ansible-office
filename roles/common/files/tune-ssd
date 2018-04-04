@@ -11,3 +11,12 @@ hdparm -a 2048 /dev/sdb
 
 # sleep for first HDD drive
 hdparm -Y /dev/sda
+
+# create users cache folders
+mount /var/tmp
+cd /home/;
+for i in *
+do
+	mkdir /var/tmp/$i
+	chown $i /var/tmp/$i
+done
