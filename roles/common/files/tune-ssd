@@ -17,6 +17,6 @@ mount /var/tmp
 cd /home/;
 for i in *
 do
-	mkdir /var/tmp/$i
+	mkdir -p /var/tmp/$i/cache
 	chown $i /var/tmp/$i
 done
