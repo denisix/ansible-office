@@ -30,6 +30,31 @@
 - name: correct fstab
   replace: dest=/etc/fstab regexp='^\/dev\/mapper\/client\-rootfs' replace='/dev/sdb'
 
+- name: fstab-opt1
+  tags: fstab
+  lineinfile: dest=/etc/fstab regexp='\/var\/cache\/apt\/archives' line='tmpfs /var/cache/apt/archives tmpfs defaults,noexec,nosuid,nodev 0 0' state=present
+  notify: clean-apt-cache-remount
+
+- name: fstab-opt2
+  tags: fstab
+  lineinfile: dest=/etc/fstab regexp='^tmpfs /tmp' line='tmpfs /tmp tmpfs defaults,noatime,nodiratime,mode=1777,noexec,nosuid,nodev,size=10% 0 0' state=present
+  notify: remount-all
+
+- name: fstab-opt3
+  tags: fstab
+  lineinfile: dest=/etc/fstab regexp='^tmpfs /var/log' line='tmpfs /var/log tmpfs defaults,noatime,nodiratime,mode=1777,noexec,nosuid,nodev,size=10% 0 0' state=present
+  notify: remount-all
+
+- name: fstab-opt4
+  tags: fstab
+  lineinfile: dest=/etc/fstab regexp='^tmpfs /var/tmp' line='tmpfs /var/tmp tmpfs defaults,noatime,nodiratime,mode=1777,noexec,nosuid,nodev,size=30% 0 0' state=present
+  notify: home-cache-mount
+
+- name: fstab options
+  tags: fstab
+  include: fstab-opts.yml point=/ opts=discard,errors=remount-ro,noatime,nodiratime,commit=600
+  notify: remount-all
+
 - name: rsyslog remote
   tags: syslog
   lineinfile: dest=/etc/rsyslog.d/90-remote.conf

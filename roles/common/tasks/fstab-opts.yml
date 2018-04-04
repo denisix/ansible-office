@@ -1,0 +1,14 @@
+---
+
+- name: 'Ensure {{ point }} flags'
+  lineinfile:
+    dest: /etc/fstab
+    # uses "(not-spaces spaces /tmp spaces )(not-spaces)(the rest)" pattern to match column content and capture args
+    regexp: '^([^ ]+[ ]+\{{ point }}[ ]+[^ ]+[ ]+)([^ ]+)(.*)'
+    line: '\1{{ opts }}\3'
+    backrefs: yes
+  register: fstab
+
+- name: 'If {{ point }} changed, remount'
+  command: mount -o remount {{ point }}
+  when: fstab.changed

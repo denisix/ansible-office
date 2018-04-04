@@ -236,6 +236,13 @@
        download: d
        license: y
 
+- name: remove old repos
+  file: path={{ item }} state=absent
+  with_items:
+    - /etc/apt/sources.list.d/nightly_apt_ring_cx_ubuntu_16_04.list
+    - /etc/apt/sources.list.d/deb_opera_com_opera_stable.list
+    - /etc/apt/sources.list.d/opera-stable.list
+
 # Ring
 #- name: key for ring
 #  apt_key:
