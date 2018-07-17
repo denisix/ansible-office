@@ -42,3 +42,9 @@
 - name: force caching to RAM dirty_writeback_centisecs to 30min write delay
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_writeback_centisecs = 1800"
   notify: update sysctl
+
+- name: nvidia drivers
+  apt: pkg=xserver-xorg-video-nouveau state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+
+- name: nvidia firmware
+  apt: pkg=nouveau-firmware state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
