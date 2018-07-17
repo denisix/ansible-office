@@ -84,3 +84,8 @@
 
 - name: disable chromium disk cache
   lineinfile: dest=/etc/chromium-browser/default regexp='^CHROMIUM_FLAGS=""' line='CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"' state=present
+
+- name: diable firefox disk cache
+  copy: >
+          src=syspref.js dest=/etc/firefox/syspref.js
+          owner=root group=root mode=0644
