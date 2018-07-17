@@ -81,3 +81,6 @@
 
 - name: clean man-db weekly tasks
   file: path=/etc/cron.weekly/man-db state=absent
+
+- name: disable chromium disk cache
+  lineinfile: dest=/etc/chromium-browser/default regexp='^CHROMIUM_FLAGS=""' line='CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"' state=present
