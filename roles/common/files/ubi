@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 ISO=$1
 
 if [ "$ISO" = "" ]
