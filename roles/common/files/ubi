@@ -26,11 +26,12 @@ do
 		if [ "$x" = "Y" ]
 		then
 			echo OK
+			umount /dev/${i}1 >/dev/null 2>&1
 			dd if=/dev/zero of=/dev/$i bs=1M count=1
 			parted /dev/$i "mklabel msdos"
 			parted /dev/$i -a opt -s "mkpart pri fat32 0% 100%"
 			mkfs.vfat /dev/${i}1
-			mkdir /tmp/ubi
+			mkdir /tmp/ubi >/dev/null 2>&1
 			mount /dev/${i}1 /tmp/ubi
 			unetbootin \
 				method=diskimage \
@@ -38,7 +39,7 @@ do
 				installtype=USB \
 				targetdrive=/dev/${i}1 \
 				autoinstall=yes
-			umount /tmp/ubi
+			umount /tmp/ubi >/dev/null 2>&1
 			rmdir /tmp/ubi
 			exit 0
 		fi
