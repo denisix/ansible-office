@@ -1,0 +1,46 @@
+#!/bin/sh
+
+ISO=$1
+
+if [ "$ISO" = "" ]
+then
+	echo "Usage: ubi <path to ISO file>"
+	exit 1
+fi
+
+cd /sys/block
+
+for i in sd*
+do
+	r=$(cat $i/removable)
+	#echo $r
+	if [ "$r" -eq "1" ]
+	then
+		#echo $i $r
+	
+		vendor=$(cat /sys/block/sdb/device/vendor)
+		model=$(cat /sys/block/sdb/device/model)
+
+		echo -n "Drive [/dev/$i] is removable [$vendor $model], confirm? [Y]: "
+		read x
+		if [ "$x" = "Y" ]
+		then
+			echo OK
+			dd if=/dev/zero of=/dev/$i bs=1M count=1
+			parted /dev/$i "mklabel msdos"
+			parted /dev/$i -a opt -s "mkpart pri fat32 0% 100%"
+			mkfs.vfat /dev/${i}1
+			mkdir /tmp/ubi
+			mount /dev/${i}1 /tmp/ubi
+			unetbootin \
+				method=diskimage \
+				isofile=$ISO \
+				installtype=USB \
+				targetdrive=/dev/${i}1 \
+				autoinstall=yes
+			umount /tmp/ubi
+			rmdir /tmp/ubi
+			exit 0
+		fi
+	fi
+done

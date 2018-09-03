@@ -28,6 +28,16 @@
 - name: mplayer
   apt: name=mplayer state=latest force=yes install_recommends=yes
 
+# UBI unetbootin
+- name: unetbootin
+  apt: name=unetbootin state=latest force=yes install_recommends=yes
+
+# UBI script
+- name: ubi | unetbootin
+  copy: >
+    src=ubi dest=/usr/local/bin/ubi
+    owner=root group=root mode=0755
+
 # Scan
 - name: simple scan
   apt: name=simple-scan state=latest force=yes install_recommends=yes
