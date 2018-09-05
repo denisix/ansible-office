@@ -1,46 +1,9 @@
 ---
-
-# Whois
-- name: whois
-  apt: name=whois state=latest force=yes install_recommends=yes
-
-# MTR
-- name: mtr
-  apt: name=mtr state=latest force=yes install_recommends=yes
-
-# DIG
-- name: dig_install
-  apt: name=dnsutils state=latest force=yes install_recommends=yes
-
-# Atop
-- name: atop
-  apt: name=atop state=latest force=yes install_recommends=yes
-
-# arch
-- name: xarchiver
-  apt: name=xarchiver state=latest force=yes install_recommends=yes
-
-# rar
-- name: rar
-  apt: name=rar state=latest force=yes install_recommends=yes
-
-# Mplayer
-- name: mplayer
-  apt: name=mplayer state=latest force=yes install_recommends=yes
-
-# UBI unetbootin
-- name: unetbootin
-  apt: name=unetbootin state=latest force=yes install_recommends=yes
-
 # UBI script
 - name: ubi | unetbootin
   copy: >
     src=ubi dest=/usr/local/bin/ubi
     owner=root group=root mode=0755
-
-# Scan
-- name: simple scan
-  apt: name=simple-scan state=latest force=yes install_recommends=yes
 
 # Firefox
 - name: repo for firefox
@@ -52,20 +15,161 @@
     - ppa:ubuntu-mozilla-security/ppa
   ignore_errors: yes
 
-- name: install/update Firefox
-  apt: name=firefox state=latest force=yes install_recommends=yes
+# syncthing repos
+- name: syncthing key
+  apt_key:
+    url: https://syncthing.net/release-key.txt
+    state: present
+  ignore_errors: yes
 
-- name: Firefox locale RU
-  apt: name=firefox-locale-ru state=latest force=yes install_recommends=yes
+- name: syncthing repo
+  apt_repository:
+    repo: deb https://apt.syncthing.net/ syncthing stable
+    state: present
+  notify: apt update
+  ignore_errors: yes
 
-- name: install/update Thunderbird
-  apt: name=thunderbird state=latest cache_valid_time=86400 force=yes install_recommends=yes
+# Skype
+- name: skype repo
+  apt_repository: repo='deb [arch=amd64] https://repo.skype.com/deb stable main' state=present
+  notify: apt update
+  ignore_errors: yes
 
-- name: Thunderbird locale RU
-  apt: name=thunderbird-locale-ru state=latest cache_valid_time=86400 force=yes install_recommends=yes
+- name: skype repo sign
+  apt_key: url=https://repo.skype.com/data/SKYPE-GPG-KEY state=present
+  notify: apt update
+  ignore_errors: yes
 
-- name: install/update Chromium
-  apt: name=chromium-browser state=latest cache_valid_time=86400 force=yes install_recommends=yes
+# Mate
+- name: add repo for mate - xenial
+  apt_repository: repo='ppa:ubuntu-mate-dev/xenial-mate' state=present
+  notify: apt update
+  when: ansible_fqdn != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+  ignore_errors: yes
+
+- name: add repo for mate - bionic
+  apt_repository: repo='ppa:ubuntu-mate-dev/bionic-mate' state=present
+  notify: apt update
+  when: ansible_fqdn != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+  ignore_errors: yes
+
+
+
+# Mass install
+- name: install soft
+  apt: name={{ item}} state=latest force=yes install_recommends=yes cache_valid_time=86400
+  with_items:
+    - mtr
+    - dnsutils
+    - atop
+    - xarchiver
+    - rar
+    - mplayer
+    - unetbootin
+    - simple-scan
+    - firefox
+    - firefox-locale-ru
+    - thunderbird
+    - thunderbird-locale-ru
+    - chromium-browser
+    - pidgin
+    - pidgin-otr
+    - gxkb
+    - syncthing
+    - rdesktop
+    - language-pack-en
+    - language-pack-ru
+    - xournal
+    - qpdf
+    - gobby
+    - vlc
+    - pulseaudio
+    - libreoffice
+    - skypeforlinux
+    - hplip
+    - python-pexpect # for HP printer config (next)
+  ignore_errors: yes
+
+
+# Mass install for hosts not 'dt'
+- name: install soft
+  apt: name={{ item}} state=latest force=yes install_recommends=yes cache_valid_time=86400
+  with_items:
+    - psi-plus
+    - ubuntu-mate-core
+    - ubuntu-mate-desktop
+    - remmina
+  ignore_errors: yes
+  when: ansible_fqdn != "dt"
+
+
+
+# =========== CUSTOM ===============
+- name: specs
+  copy: >
+    src=specs dest=/usr/local/bin/specs
+    owner=root group=root mode=0755
+
+# RealVNC client from official website
+- name: realvnc download
+  get_url: url="https://www.realvnc.com/download/file/viewer.files/VNC-Viewer-6.17.1113-Linux-x64.deb" dest="/var/cache/apt/archives/realvnc.deb"
+  ignore_errors: yes
+
+- name: realvnc install
+  apt: deb="/var/cache/apt/archives/realvnc.deb" state=present 
+
+# Printer HP setup
+- name: check if HP printer configured
+  tags: hp
+  shell: /bin/bash -c "/usr/bin/hp-probe -bcups 2>&1 | grep 172.16.5.20"
+  register: hp_check
+  ignore_errors: yes
+  changed_when: false
+
+- name: need to configure HP printer
+  when: hp_check|failed
+  tags: hp
+  expect:
+     command: /bin/bash -c "/usr/bin/hp-setup -i -a -x 172.16.5.20"
+     responses:
+       download: d
+       license: y
+
+
+# REMOVE repos
+- name: remove old repos
+  file: path={{ item }} state=absent
+  with_items:
+    - /etc/apt/sources.list.d/nightly_apt_ring_cx_ubuntu_16_04.list
+    - /etc/apt/sources.list.d/deb_opera_com_opera_stable.list
+    - /etc/apt/sources.list.d/opera-stable.list
+
+
+# REMOVE soft
+- name: remove unneded soft
+  apt: name={{ item }} state=absent
+  with_items:
+    - at
+    - lvm2
+    - arpwatch
+    - smartmontools
+
+# Ring
+#- name: key for ring
+#  apt_key:
+#    keyserver: pgp.mit.edu
+#    id: A295D773307D25A33AE72F2F64CD5FA175348F84
+#  ignore_errors: yes
+
+#- name: repo for ring
+#  apt_repository: repo='deb https://dl.ring.cx/ring-nightly/ubuntu_16.04/ ring main' state=present
+#  notify: apt update
+#  ignore_errors: yes
+
+#- name: ring
+#  apt: name=ring state=latest force=yes install_recommends=yes
+#  ignore_errors: yes
+
 
 # Java
 #- name: java jre
@@ -140,170 +244,3 @@
 #    src=kvm dest=/usr/local/bin/kvm
 #    owner=root group=root mode=0755
 
-# RealVNC client from official website
-- name: realvnc download
-  get_url: url="https://www.realvnc.com/download/file/viewer.files/VNC-Viewer-6.17.1113-Linux-x64.deb" dest="/var/cache/apt/archives/realvnc.deb"
-  ignore_errors: yes
-
-- name: realvnc install
-  apt: deb="/var/cache/apt/archives/realvnc.deb" state=present 
-
-# Jabber
-- name: install/update pidgin
-  apt: name=pidgin state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-- name: install/update pidgin otr
-  apt: name=pidgin-otr state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-- name: install/update psi+
-  apt: name=psi-plus state=latest cache_valid_time=86400 force=yes install_recommends=yes
-  when: ansible_fqdn != "dt"
-
-- name: install Pulseaudio
-  apt: name=pulseaudio state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-# LibreOffice
-- name: install LibreOffice
-  apt: name=libreoffice state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-# Skype
-- name: skype repo
-  apt_repository: repo='deb [arch=amd64] https://repo.skype.com/deb stable main' state=present
-  notify: apt update
-
-- name: skype repo sign
-  apt_key: url=https://repo.skype.com/data/SKYPE-GPG-KEY state=present
-  notify: apt update
-  ignore_errors: yes
-
-- name: install Skype
-  apt: name=skypeforlinux state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-# Mate
-- name: add repo for mate - xenial
-  apt_repository: repo='ppa:ubuntu-mate-dev/xenial-mate' state=present
-  notify: apt update
-  when: ansible_fqdn != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
-
-- name: add repo for mate - bionic
-  apt_repository: repo='ppa:ubuntu-mate-dev/bionic-mate' state=present
-  notify: apt update
-  when: ansible_fqdn != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
-
-
-# Mate install
-- name: mate core install
-  apt: name=ubuntu-mate-core state=latest cache_valid_time=86400 force=yes install_recommends=yes
-  when: ansible_fqdn != "dt"
-
-- name: mate desktop install
-  apt: name=ubuntu-mate-desktop state=latest cache_valid_time=86400 force=yes install_recommends=yes
-  when: ansible_fqdn != "dt"
-
-# RDP tools
-- name: remmina install
-  apt: name=remmina state=latest cache_valid_time=86400 force=yes install_recommends=yes
-  when: ansible_fqdn != "dt"
-
-- name: rdp
-  apt: name=rdesktop state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-# Languages
-- name: lang pack en
-  apt: name=language-pack-en state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-- name: lang pack ru
-  apt: name=language-pack-ru state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-# PDF
-- name: pdf xournal
-  apt: name=xournal state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-- name: qpdf
-  apt: name=qpdf state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-# Gobby
-- name: gobby
-  apt: name=gobby state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-# VLC
-- name: vlc
-  apt: name=vlc state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-# Printer HP setup
-- name: printer HP tools
-  apt: name=hplip state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-- name: install expect module
-  apt: name=python-pexpect state=latest cache_valid_time=86400 force=yes install_recommends=yes
-
-- name: check if HP printer configured
-  tags: hp
-  shell: /bin/bash -c "/usr/bin/hp-probe -bcups 2>&1 | grep 172.16.5.20"
-  register: hp_check
-  ignore_errors: yes
-  changed_when: false
-
-- name: need to configure HP printer
-  when: hp_check|failed
-  tags: hp
-  expect:
-     command: /bin/bash -c "/usr/bin/hp-setup -i -a -x 172.16.5.20"
-     responses:
-       download: d
-       license: y
-
-- name: remove old repos
-  file: path={{ item }} state=absent
-  with_items:
-    - /etc/apt/sources.list.d/nightly_apt_ring_cx_ubuntu_16_04.list
-    - /etc/apt/sources.list.d/deb_opera_com_opera_stable.list
-    - /etc/apt/sources.list.d/opera-stable.list
-
-
-# Ring
-#- name: key for ring
-#  apt_key:
-#    keyserver: pgp.mit.edu
-#    id: A295D773307D25A33AE72F2F64CD5FA175348F84
-#  ignore_errors: yes
-
-#- name: repo for ring
-#  apt_repository: repo='deb https://dl.ring.cx/ring-nightly/ubuntu_16.04/ ring main' state=present
-#  notify: apt update
-#  ignore_errors: yes
-
-#- name: ring
-#  apt: name=ring state=latest force=yes install_recommends=yes
-#  ignore_errors: yes
-
-- name: keyboard switch
-  apt: name=gxkb state=latest force=yes install_recommends=yes
-  ignore_errors: yes
-
-- name: specs
-  copy: >
-    src=specs dest=/usr/local/bin/specs
-    owner=root group=root mode=0755
-
-- name: syncthing key
-  apt_key:
-    url: https://syncthing.net/release-key.txt
-    state: present
-
-- name: syncthing repo
-  apt_repository:
-    repo: deb https://apt.syncthing.net/ syncthing stable
-    state: present
-  notify: apt update
-
-- name: syncthing install
-  apt: name=syncthing state=latest force=yes install_recommends=yes
-
-- name: remove unneded soft
-  apt: name={{ item }} state=absent
-  with_items:
-    - at
-    - lvm2
-    - arpwatch
-    - smartmontools
