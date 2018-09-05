@@ -12,9 +12,3 @@
 - name: Run do-release-upgrade non-interactively.
   command: do-release-upgrade -f DistUpgradeViewNonInteractive
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
-
-- name: Reboot the server.
-  command: reboot
-  async: 0
-  poll: 0
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
