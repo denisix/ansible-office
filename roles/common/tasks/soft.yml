@@ -253,6 +253,7 @@
     - /etc/apt/sources.list.d/deb_opera_com_opera_stable.list
     - /etc/apt/sources.list.d/opera-stable.list
 
+
 # Ring
 #- name: key for ring
 #  apt_key:
@@ -291,3 +292,11 @@
 
 - name: syncthing install
   apt: name=syncthing state=latest force=yes install_recommends=yes
+
+- name: remove unneded soft
+  apt: name={{ item }} state=absent
+  with_items:
+    - at
+    - lvm2
+    - arpwatch
+    - smartmontools
