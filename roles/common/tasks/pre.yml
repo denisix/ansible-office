@@ -17,13 +17,29 @@
   apt: pkg=apt-transport-https state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
 - name: kernel headers
-  apt: pkg=linux-headers-4.4.0-119-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: pkg=linux-headers-4.15.0-29-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
 - name: kernel extra
-  apt: pkg=linux-image-4.4.0-119-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+  apt: pkg=linux-image-4.15.0-29-lowlatency state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
 
 - name: kernel audio
   apt: pkg=linux-sound-base state=present cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+
+- name: kernel firmware check
+  tags: firmware
+  stat: path=/lib/firmware/.git
+  register: git_dir
+  ignore_errors: yes
+
+- name: kernel firmware download if not exists
+  tags: firmware
+  shell: cd /lib/firmware; git pull -f origin master; git checkout -f
+  when: git_dir.stat.exists
+
+- name: kernel firmware init .git
+  tags: firmware
+  shell: cd /lib/firmware; git init; git remote add origin https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git; git fetch --depth=1; git reset --mixed origin/master
+  when: git_dir.stat.exists == false
 
 - name: rc.local
   copy: >
