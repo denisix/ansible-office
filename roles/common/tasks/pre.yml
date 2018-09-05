@@ -1,10 +1,17 @@
 - name: tail resolver
   lineinfile: dest=/etc/resolvconf/resolv.conf.d/tail create=yes state=present line="nameserver 172.16.5.1"
 
-- name: APT sources
+- name: APT sources for xenial
   copy: >
-    src=sources.list dest=/etc/apt/sources.list owner=root group=root mode=0644
+    src=sources.list.xenial dest=/etc/apt/sources.list owner=root group=root mode=0644
   notify: apt update
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- name: APT sources for bionic
+  copy: >
+    src=sources.list.bionic dest=/etc/apt/sources.list owner=root group=root mode=0644
+  notify: apt update
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
 - name: apt HTTPs?
   apt: pkg=apt-transport-https state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
