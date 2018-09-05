@@ -7,7 +7,6 @@ deb http://archive.canonical.com/ubuntu bionic partner
 deb-src http://archive.canonical.com/ubuntu bionic partner
 
 # additional:
-deb http://deb.torproject.org/torproject.org bionic main
 deb http://download.virtualbox.org/virtualbox/debian bionic contrib
 deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu bionic main
 deb http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu bionic main

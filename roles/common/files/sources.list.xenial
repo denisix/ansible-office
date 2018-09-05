@@ -7,7 +7,6 @@ deb http://archive.canonical.com/ubuntu xenial partner
 deb-src http://archive.canonical.com/ubuntu xenial partner
 
 # additional:
-deb http://deb.torproject.org/torproject.org xenial main
 deb http://download.virtualbox.org/virtualbox/debian xenial contrib
 deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu xenial main
 deb http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu xenial main
