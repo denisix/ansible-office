@@ -1,3 +1,10 @@
+# get hostname
+- command: hostname
+  register: hostname
+
+- set_fact:
+    actual_hostname: hostname.stdout
+
 - name: tail resolver
   lineinfile: dest=/etc/resolvconf/resolv.conf.d/tail create=yes state=present line="nameserver 172.16.5.1"
 

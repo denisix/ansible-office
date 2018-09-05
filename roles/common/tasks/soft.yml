@@ -44,13 +44,13 @@
 - name: add repo for mate - xenial
   apt_repository: repo='ppa:ubuntu-mate-dev/xenial-mate' state=present
   notify: apt update
-  when: ansible_fqdn != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+  when: actual_hostname != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
   ignore_errors: yes
 
 - name: add repo for mate - bionic
   apt_repository: repo='ppa:ubuntu-mate-dev/bionic-mate' state=present
   notify: apt update
-  when: ansible_fqdn != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+  when: actual_hostname != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
   ignore_errors: yes
 
 
@@ -100,7 +100,7 @@
     - ubuntu-mate-desktop
     - remmina
   ignore_errors: yes
-  when: ansible_fqdn != "dt"
+  when: actual_hostname != "dt"
 
 
 
