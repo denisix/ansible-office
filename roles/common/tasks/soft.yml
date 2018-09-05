@@ -50,6 +50,7 @@
     - ppa:mozillateam/firefox-next
     - ppa:ubuntu-mozilla-daily/firefox-aurora
     - ppa:ubuntu-mozilla-security/ppa
+  ignore_errors: yes
 
 - name: install/update Firefox
   apt: name=firefox state=latest force=yes install_recommends=yes
