@@ -1,0 +1,20 @@
+- debug: msg='This server is running Ubuntu 16.04 LTS and will be upgraded to 18.04 LTS.'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- name: Upgrade all packages to the latest version
+  apt: update_cache=yes upgrade=full
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- name: Ensure update-manager-core is installed.
+  apt: name=update-manager-core state=present
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- name: Run do-release-upgrade non-interactively.
+  command: do-release-upgrade -f DistUpgradeViewNonInteractive
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- name: Reboot the server.
+  command: reboot
+  async: 0
+  poll: 0
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
