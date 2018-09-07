@@ -86,8 +86,10 @@
     - pulseaudio
     - libreoffice
     - skypeforlinux
-    - hplip
-    - python-pexpect # for HP printer config (next)
+    - hplip # for HP printer
+    - xsane # for HP printer scan mode
+    - snmp-mibs-downloader # for HP printer
+    - python-pexpect # for HP printer
   ignore_errors: yes
 
 

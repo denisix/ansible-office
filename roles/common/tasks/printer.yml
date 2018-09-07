@@ -21,6 +21,6 @@
   expect:
      command: /bin/bash -c "/usr/bin/hp-plugin -i"
      responses:
-       download: y
+       d=download: y
        license: y
        Please enter 'd': d
