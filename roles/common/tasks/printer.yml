@@ -1,0 +1,26 @@
+---
+# Printer HP setup
+- name: check if HP printer configured
+  tags: hp
+  shell: /bin/bash -c "/usr/bin/hp-probe -bcups 2>&1 | grep 172.16.5.20"
+  register: hp_check
+  ignore_errors: yes
+  changed_when: false
+
+- name: need to configure HP printer
+  when: hp_check is failed
+  tags: hp
+  expect:
+     command: /bin/bash -c "/usr/bin/hp-setup -i -a -x 172.16.5.20"
+     responses:
+       download: d
+       license: y
+
+- name: update HP plugin
+  tags: hp
+  expect:
+     command: /bin/bash -c "/usr/bin/hp-plugin -i"
+     responses:
+       d=download: y
+       license: y
+       Please enter 'd': d
