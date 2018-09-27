@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Autolock
+Exec=/bin/bash -c "xset s 300; xss-lock slock"
+StartupNotify=false
+Terminal=false
+OnlyShowIn=MATE
+X-GNOME-Autostart-enabled=true
+X-MATE-Autostart-enabled=true
