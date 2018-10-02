@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # i/o scheduler
-echo noop > /sys/block/sdb/queue/scheduler
+echo deadline > /sys/block/sdb/queue/scheduler
 
 # I/O queue
 echo 1024 > /sys/block/sdb/queue/nr_requests

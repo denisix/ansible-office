@@ -87,9 +87,18 @@
     - libreoffice
     - skypeforlinux
     - hplip
+    - xsane # for HP printer scan mode
     - python-pexpect # for HP printer config (next)
+    - snmp-mibs-downloader # for HP printer
+    - xss-lock # to lock the screen
+    - suckless-tools
   ignore_errors: yes
 
+# Configure autolock with slock
+- name: slock autostart
+  copy: >
+    src=autolock.desktop dest=/usr/share/mate/autostart/autolock.desktop
+    owner=root group=root mode=0755
 
 # Mass install for hosts not 'dt'
 - name: install soft
@@ -117,24 +126,6 @@
 
 - name: realvnc install
   apt: deb="/var/cache/apt/archives/realvnc.deb" state=present 
-
-# Printer HP setup
-- name: check if HP printer configured
-  tags: hp
-  shell: /bin/bash -c "/usr/bin/hp-probe -bcups 2>&1 | grep 172.16.5.20"
-  register: hp_check
-  ignore_errors: yes
-  changed_when: false
-
-- name: need to configure HP printer
-  when: hp_check|failed
-  tags: hp
-  expect:
-     command: /bin/bash -c "/usr/bin/hp-setup -i -a -x 172.16.5.20"
-     responses:
-       download: d
-       license: y
-
 
 # REMOVE repos
 - name: remove old repos
