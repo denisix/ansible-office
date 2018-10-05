@@ -13,7 +13,7 @@ echo 900 > /sys/block/sdb/device/timeout
 echo 0 > /proc/sys/kernel/hung_task_timeout_secs
 
 # read-ahead
-hdparm -a 4096 /dev/sdb
+hdparm -a 2048 /dev/sdb
 
 # sleep for first HDD drive
 hdparm -Y /dev/sda

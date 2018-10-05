@@ -57,6 +57,10 @@
     src=tune-ssd dest=/usr/local/sbin/tune-ssd owner=root group=root mode=0755
   notify: exec rc-local
 
+- name: tune iscsi in udev
+  copy: >
+    src=iscsi.udev dest=/etc/udev/rules.d/50-iscsi.rules owner=root group=root mode=0644
+
 - name: force caching to RAM dirty_ratio to 99 perc
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_ratio = 99"
   notify: update sysctl
