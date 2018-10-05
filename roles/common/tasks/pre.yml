@@ -79,7 +79,7 @@
 
 # iscsi tune
 - name: tune iscsi replace timeout
-  lineinfile: dest=/etc/iscsi/iscsid.conf regexp='^node.session.timeo.replacement_timeout' line='node.session.timeo.replacement_timeout = 1800' state=present
+  lineinfile: dest=/etc/iscsi/iscsid.conf regexp='^node.session.timeo.replacement_timeout' line='node.session.timeo.replacement_timeout = 86400' state=present
 
 - name: tune iscsi noop timeout
   lineinfile: dest=/etc/iscsi/iscsid.conf regexp='^node.conn\[0\].timeo.noop_out_timeout' line='node.conn[0].timeo.noop_out_timeout = 1800' state=present
