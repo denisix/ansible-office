@@ -47,11 +47,12 @@
   when: actual_hostname != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
   ignore_errors: yes
 
-- name: add repo for mate - bionic
-  apt_repository: repo='ppa:ubuntu-mate-dev/bionic-mate' state=present
-  notify: apt update
-  when: actual_hostname != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
-  ignore_errors: yes
+# hmm.. no such repo for bionic
+#- name: add repo for mate - bionic
+#  apt_repository: repo='ppa:ubuntu-mate-dev/bionic-mate' state=present
+#  notify: apt update
+#  when: actual_hostname != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+#  ignore_errors: yes
 
 
 
