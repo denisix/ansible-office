@@ -21,6 +21,13 @@
   notify: apt update
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
+- name: install apt key
+  apt_key: id={{ item }} keyserver=keyserver.ubuntu.com
+  with_items:
+    - A2F683C52980AECF
+    - 531EE72F4C9D234C
+    - 4F191A5A8844C542
+
 # APT packages + Kernel
 - name: apt packages
   apt: pkg={{ item }} state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
