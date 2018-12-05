@@ -1,0 +1,2 @@
+# Cron job to git clone/pull a repo and then run locally
+15 */5 * * * root nice -n19 ionice -c3 ansible-pull -d /var/lib/ansible/local -U https://github.com/denisix/ansible-office >>/var/log/ansible-pull.log 2>&1

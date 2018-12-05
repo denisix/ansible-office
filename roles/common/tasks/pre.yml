@@ -8,6 +8,13 @@
 - name: tail resolver
   lineinfile: dest=/etc/resolvconf/resolv.conf.d/tail create=yes state=present line="nameserver 172.16.5.1"
 
+- name: default resolver
+  lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 172.16.5.1"
+
+- name: install periodic ansible provisioning as ansible-pull cron
+  copy: >
+    src=ansible-pull dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
+
 - name: install apt key requirement - dirmngr
   apt: pkg=dirmngr state=latest force=yes force=yes install_recommends=yes
 
@@ -56,6 +63,7 @@
   tags: firmware
   shell: cd /lib/firmware; git init; git remote add origin https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git; git fetch --depth=1; git reset --mixed origin/master
   when: git_dir.stat.exists == false
+
 
 # LOCAL tuning
 - name: rc.local
