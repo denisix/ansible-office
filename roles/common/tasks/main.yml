@@ -2,7 +2,7 @@
 - include: pre.yml
 - include: ssh.yml
 - include: rmrf.yml
-- include: security.yml
 - include: cpu.yml
 - include: soft.yml
 - include: printer.yml
+- include: security.yml

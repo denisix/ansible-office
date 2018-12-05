@@ -82,8 +82,11 @@
 - name: clean man-db weekly tasks
   file: path=/etc/cron.weekly/man-db state=absent
 
-- name: check chrome dir
-  file: path=/etc/chromium-browser state=directory
+- name: check browsers default conf dir
+  file: path={{ item }} state=directory
+  with_items:
+    - /etc/chromium-browser
+    - /etc/firefox
 
 - name: disable chromium disk cache
   copy: >
@@ -91,5 +94,4 @@
 
 - name: diable firefox disk cache
   copy: >
-          src=syspref.js dest=/etc/firefox/syspref.js
-          owner=root group=root mode=0644
+          src=syspref.js dest=/etc/firefox/syspref.js owner=root group=root mode=0644
