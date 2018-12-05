@@ -8,6 +8,9 @@
 - name: tail resolver
   lineinfile: dest=/etc/resolvconf/resolv.conf.d/tail create=yes state=present line="nameserver 172.16.5.1"
 
+- name: install apt key requirement - dirmngr
+  apt: pkg=dirmngr state=latest force=yes force=yes install_recommends=yes
+
 # APT
 - name: APT sources for xenial
   copy: >
@@ -21,10 +24,7 @@
   notify: apt update
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
-- name: install apt key requirement - dirmngr
-  apt: pkg=dirmngr state=latest force=yes force=yes install_recommends=yes
-
-- name: install apt key
+- name: install missing apt keys to solve NO_PUBKEY errors
   apt_key: id={{ item }} keyserver=keyserver.ubuntu.com
   with_items:
     - A2F683C52980AECF

@@ -1,0 +1,5 @@
+# set noop scheduler for non-rotating disks
+ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="noop"
+
+# set timeout for iSCSI
+ID_SCSI=="1", KERNEL=="sd[a-z]", ACTION=="add|change", ATTR{timeout}="900" RUN+="/bin/sh -c 'echo 900 > /sys/block/%k/device/timeout'"
