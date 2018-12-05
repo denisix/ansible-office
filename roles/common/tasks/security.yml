@@ -95,3 +95,12 @@
 - name: diable firefox disk cache
   copy: >
           src=syspref.js dest=/etc/firefox/syspref.js owner=root group=root mode=0644
+
+# Configure autolock with slock
+- name: check dir
+  file: path=/usr/share/mate/autostart state=directory
+
+- name: slock autostart
+  copy: >
+    src=autolock.desktop dest=/usr/share/mate/autostart/autolock.desktop
+    owner=root group=root mode=0755

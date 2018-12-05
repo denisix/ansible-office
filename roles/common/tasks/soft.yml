@@ -94,11 +94,6 @@
     - suckless-tools
   ignore_errors: yes
 
-# Configure autolock with slock
-- name: slock autostart
-  copy: >
-    src=autolock.desktop dest=/usr/share/mate/autostart/autolock.desktop
-    owner=root group=root mode=0755
 
 # Mass install for hosts not 'dt'
 - name: install soft

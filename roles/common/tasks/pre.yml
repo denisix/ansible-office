@@ -37,6 +37,7 @@
     - A2F683C52980AECF
     - 531EE72F4C9D234C
     - 4F191A5A8844C542
+    - 1F3045A5DF7587C3
 
 # APT packages + Kernel
 - name: apt packages
