@@ -86,7 +86,8 @@
   file: path=/etc/chromium-browser state=directory
 
 - name: disable chromium disk cache
-  lineinfile: dest=/etc/chromium-browser/default regexp='^CHROMIUM_FLAGS=""' line='CHROMIUM_FLAGS="--disk-cache-dir=/dev/null --disk-cache-size=1"' state=present
+  copy: >
+    src=chrome.default dest=/etc/chromium-browser/default owner=root group=root mode=0644
 
 - name: diable firefox disk cache
   copy: >
