@@ -21,6 +21,9 @@
   notify: apt update
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
+- name: install apt key requirement - dirmngr
+  apt: pkg=dirmngr state=latest force=yes force=yes install_recommends=yes
+
 - name: install apt key
   apt_key: id={{ item }} keyserver=keyserver.ubuntu.com
   with_items:
