@@ -99,6 +99,7 @@
     - snmp-mibs-downloader # for HP printer
     - xss-lock # to lock the screen
     - suckless-tools
+    - libnet-telnet-cisco-perl # for bgpview
   ignore_errors: yes
 
 
