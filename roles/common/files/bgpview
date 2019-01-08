@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+use Net::Telnet::Cisco;
+use Socket;
+
+sub get_bgp_path {
+	my $net = shift;
+#	my $bgp_host = 'route-views2.routeviews.org';
+	my $bgp_host = 'route-server.he.net';
+
+	# Enforce NAT to go via local ISP and not via our prefix
+	my $bgp_ip = inet_ntoa(scalar(gethostbyname($bgp_host)));
+
+	my $session = Net::Telnet::Cisco->new(Host => $bgp_host);
+	$session->login('rviews', '');
+
+	# Execute a command
+	my @output = $session->cmd("sh ip bgp $net");
+	print @output;
+
+	$session->close;
+}
+
+my $net = $ARGV[0] || die "Usage: bgpview <network/prefix>\n";
+get_bgp_path($net);

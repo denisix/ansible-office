@@ -5,6 +5,12 @@
     src=ubi dest=/usr/local/bin/ubi
     owner=root group=root mode=0755
 
+# BGPview
+- name: bgpview
+  copy: >
+    src=bgpview dest=/usr/local/bin/bgpview
+    owner=root group=root mode=0755
+
 # Firefox
 - name: repo for firefox
   apt_repository: repo={{ item }} state=present
