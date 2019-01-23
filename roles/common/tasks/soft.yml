@@ -13,9 +13,7 @@
 
 # RocketChat desktop
 - name: rocketchat desktop
-  snap:
-    name: rocketchat-desktop
-    state: present
+  command: snap install rocketchat-desktop
 
 # Firefox
 - name: repo for firefox
