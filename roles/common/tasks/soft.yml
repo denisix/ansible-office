@@ -13,7 +13,9 @@
 
 # RocketChat desktop
 - name: rocketchat desktop
-  snap: name=rocketchat-desktop state=present
+  snap:
+    name: rocketchat-desktop
+    state: present
 
 # Firefox
 - name: repo for firefox
