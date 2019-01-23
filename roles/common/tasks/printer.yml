@@ -8,6 +8,7 @@
   changed_when: false
 
 - name: need to configure HP printer
+  ignore_errors: yes
   when: hp_check is failed
   tags: hp
   expect:
@@ -18,6 +19,7 @@
 
 - name: update HP plugin
   tags: hp
+  ignore_errors: yes
   expect:
      command: /bin/bash -c "/usr/bin/hp-plugin -i"
      responses:
