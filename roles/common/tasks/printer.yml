@@ -23,6 +23,7 @@
   expect:
      command: /bin/bash -c "/usr/bin/hp-plugin -i"
      responses:
-       d=download: y
+       re-install: y
+       d=download: d
        license: y
        Please enter 'd': d
