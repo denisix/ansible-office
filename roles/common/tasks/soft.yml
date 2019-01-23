@@ -11,6 +11,10 @@
     src=bgpview dest=/usr/local/bin/bgpview
     owner=root group=root mode=0755
 
+# RocketChat desktop
+- name: rocketchat desktop
+  snap: name=rocketchat-desktop state=present
+
 # Firefox
 - name: repo for firefox
   apt_repository: repo={{ item }} state=present
