@@ -26,4 +26,5 @@
        re-install: y
        d=download: d
        license: y
+       still: y
        Please enter 'd': d
