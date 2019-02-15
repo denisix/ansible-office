@@ -121,6 +121,14 @@
 
 
 # =========== CUSTOM ===============
+
+# mail autoconfiguration for thunderbird
+- name: thunderbird autoconfig for ISP
+  copy: >
+    src=dcxv.com.xml dest=/usr/lib/thunderbird/isp/dcxv.com.xml
+    owner=root group=root mode=0644
+
+#
 - name: specs
   copy: >
     src=specs dest=/usr/local/bin/specs
