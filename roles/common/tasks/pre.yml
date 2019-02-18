@@ -13,10 +13,17 @@
 
 - name: force default dns resolver
   lineinfile: dest=/etc/NetworkManager/NetworkManager.conf create=yes state=present line="dns=default" insertafter="^\[main\]"
-  notify:
-    - rm-resolv
-    - restart network-manager
+  register: nm
   ignore_errors: yes
+
+- name: force default dns - remove resolv
+  file: path=/etc/resolv.conf state=absent
+  when: nm is changed
+
+- name: force default dns - restart network manager
+  service: name=network-manager state=restarted
+  when: nm is changed
+
 
 - name: install periodic ansible provisioning as ansible-pull cron
   copy: >
