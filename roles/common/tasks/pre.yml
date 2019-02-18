@@ -32,8 +32,9 @@
 - name: install apt key requirement - dirmngr
   apt: pkg=dirmngr state=latest force=yes force=yes install_recommends=yes
 
+# deprecated: id={{ item }} keyserver=keyserver.ubuntu.com
 - name: install missing apt keys to solve NO_PUBKEY errors
-  apt_key: id={{ item }} keyserver=keyserver.ubuntu.com
+  shell: gpg --keyserver keyserver.ubuntu.com --recv {{item}} && gpg --export --armor {{item}} | apt-key add -
   with_items:
     - A2F683C52980AECF
     - 531EE72F4C9D234C
