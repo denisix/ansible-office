@@ -12,7 +12,7 @@
   lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 172.16.5.1"
 
 - name: force default dns resolver
-  lineinfile: dest=/etc/NetworkManager/NetworkManager.conf create=yes state=present line="dns=default" insertafter='^[main]'
+  lineinfile: dest=/etc/NetworkManager/NetworkManager.conf create=yes state=present line="dns=default" insertafter="^\[main\]"
   notify:
     - rm-resolv
     - restart network-manager
