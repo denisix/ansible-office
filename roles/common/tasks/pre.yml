@@ -24,6 +24,9 @@
   service: name=network-manager state=restarted
   when: nm is changed
 
+- name: force default dns - write default resolver
+  lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 172.16.5.1"
+  when: nm is changed
 
 - name: install periodic ansible provisioning as ansible-pull cron
   copy: >
