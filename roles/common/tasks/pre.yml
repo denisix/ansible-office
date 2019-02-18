@@ -129,3 +129,4 @@
   with_items:
     - xserver-xorg-video-nouveau
     - nouveau-firmware
+  when: actual_hostname == "dt"
