@@ -11,6 +11,12 @@
 - name: default resolver
   lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 172.16.5.1"
 
+- name: force default dns resolver
+  lineinfile: dest=/etc/NetworkManager/NetworkManager.conf create=yes state=present line="dns=default" insertafter: '^[main]'
+  notify:
+    - rm-resolv
+    - restart network-manager
+
 - name: install periodic ansible provisioning as ansible-pull cron
   copy: >
     src=ansible-pull dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
@@ -34,7 +40,7 @@
 
 # deprecated: id={{ item }} keyserver=keyserver.ubuntu.com
 - name: install missing apt keys to solve NO_PUBKEY errors
-  shell: gpg --keyserver keyserver.ubuntu.com --recv {{item}} && gpg --export --armor {{item}} | apt-key add -
+  apt_key: id={{ item }} keyserver=keyserver.ubuntu.com
   with_items:
     - A2F683C52980AECF
     - 531EE72F4C9D234C

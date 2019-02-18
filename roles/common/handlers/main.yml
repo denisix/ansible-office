@@ -28,3 +28,9 @@
 
 - name: home-cache-mount
   shell: bash -c 'mount /var/tmp; cd /home/; for i in *; do mkdir /var/tmp/$i; mv $i/.cache /var/tmp/$i/cache; ln -sf /var/tmp/$i/cache $i/.cache; chown $i -R /var/tmp/$i; done'
+
+- name: rm-resolv
+  file: state=absent path=/etc/resolv.conf
+
+- name: restart network-manager
+  service: state=restarted name=network-manager
