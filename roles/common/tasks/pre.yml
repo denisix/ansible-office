@@ -16,6 +16,7 @@
   notify:
     - rm-resolv
     - restart network-manager
+  ignore_errors: yes
 
 - name: install periodic ansible provisioning as ansible-pull cron
   copy: >
