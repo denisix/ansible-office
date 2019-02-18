@@ -15,9 +15,6 @@
   copy: >
     src=ansible-pull dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
 
-- name: install apt key requirement - dirmngr
-  apt: pkg=dirmngr state=latest force=yes force=yes install_recommends=yes
-
 # APT
 - name: APT sources for xenial
   copy: >
@@ -30,6 +27,10 @@
     src=sources.list.bionic dest=/etc/apt/sources.list owner=root group=root mode=0644
   notify: apt update
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
+
+
+- name: install apt key requirement - dirmngr
+  apt: pkg=dirmngr state=latest force=yes force=yes install_recommends=yes
 
 - name: install missing apt keys to solve NO_PUBKEY errors
   apt_key: id={{ item }} keyserver=keyserver.ubuntu.com
