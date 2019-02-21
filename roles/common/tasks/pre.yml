@@ -10,11 +10,11 @@
 
 - name: default resolver
   lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 172.16.5.1"
-  when: actual_hostname != "volna"
+  when: ansible_hostname != "volna"
 
 - name: default resolver - volna
   lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 185.255.96.1"
-  when: actual_hostname == "volna"
+  when: ansible_hostname == "volna"
 
 - name: force default dns resolver
   lineinfile: dest=/etc/NetworkManager/NetworkManager.conf create=yes state=present line="dns=default" insertafter="^\[main\]"
