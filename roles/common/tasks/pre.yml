@@ -38,11 +38,11 @@
 
 - name: force default dns - write default resolver
   lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 172.16.5.1"
-  when: nm is changed && actual_hostname != "volna"
+  when: nm is changed and actual_hostname != "volna"
 
 - name: force default dns - write default resolver
   lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 185.255.96.1"
-  when: nm is changed && actual_hostname == "volna"
+  when: nm is changed and actual_hostname == "volna"
 
 - name: install periodic ansible provisioning as ansible-pull cron
   copy: >
