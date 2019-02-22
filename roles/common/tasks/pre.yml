@@ -140,9 +140,9 @@
   lineinfile: dest=/etc/iscsi/iscsid.conf regexp='^node.conn\[0\].timeo.noop_out_timeout' line='node.conn[0].timeo.noop_out_timeout = 1800' state=present
 
 # DRIVERS
-- name: nvidia
-  apt: pkg={{ item }} state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
-  with_items:
-    - xserver-xorg-video-nouveau
-    - nouveau-firmware
-  when: actual_hostname == "dt"
+#- name: nvidia
+#  apt: pkg={{ item }} state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
+#  with_items:
+#    - xserver-xorg-video-nouveau
+#    - nouveau-firmware
+#  when: actual_hostname == "dt"
