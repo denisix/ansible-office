@@ -159,6 +159,13 @@
     - lvm2
     - arpwatch
     - smartmontools
+    - rsyslog
+    - eject
+    - kdegames-card-data-kf5
+    - man-db
+    - manpages
+    - libreoffice-help-ru
+    - libreoffice-help-en-us
 
 # Ring
 #- name: key for ring

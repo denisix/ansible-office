@@ -55,27 +55,6 @@
   include: fstab-opts.yml point=/ opts=discard,errors=remount-ro,noatime,nodiratime,commit=600
   notify: remount-all
 
-- name: rsyslog remote
-  tags: syslog
-  lineinfile: dest=/etc/rsyslog.d/90-remote.conf
-              regexp='^'
-              line='auth.*,authpriv.*,kern.*,cron.*,*.=warn,*.=emerg,*.=alert,*.=crit,*.=err,*.=error,*.=warn   @172.16.5.254'
-              state=present
-              create=True
-  notify: restart rsyslog
-
-- name: remove default syslog file
-  tags: syslog
-  file: path="/etc/rsyslog.d/50-default.conf" state=absent
-  notify: restart rsyslog
-
-- name: comment out deprecated KLogPermitNonKernelFacility 
-  tags: syslog
-  replace: dest=/etc/rsyslog.conf
-           regexp='^\$KLogPermitNonKernelFacility'
-           replace='#$KLogPermitNonKernelFacility'
-  notify: restart rsyslog
-
 - name: clean man-db daily tasks
   file: path=/etc/cron.daily/man-db state=absent
 
