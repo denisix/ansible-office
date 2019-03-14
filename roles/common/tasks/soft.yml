@@ -114,6 +114,7 @@
 
 - name: install unetbootin
   apt: name=unetbootin state=latest force=yes install_recommends=yes cache_valid_time=86400
+  ignore_errors: yes
 
 # UBI script
 - name: ubi | unetbootin
