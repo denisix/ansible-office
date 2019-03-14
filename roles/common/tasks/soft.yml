@@ -1,10 +1,4 @@
 ---
-# UBI script
-- name: ubi | unetbootin
-  copy: >
-    src=ubi dest=/usr/local/bin/ubi
-    owner=root group=root mode=0755
-
 # BGPview
 - name: bgpview
   copy: >
@@ -76,7 +70,6 @@
     - xarchiver
     - rar
     - mplayer
-    - unetbootin
     - simple-scan
     - firefox
     - firefox-locale-ru
@@ -119,8 +112,14 @@
   ignore_errors: yes
   when: actual_hostname != "dt"
 
+- name: install unetbootin
+  apt: name=unetbootin state=latest force=yes install_recommends=yes cache_valid_time=86400
 
-
+# UBI script
+- name: ubi | unetbootin
+  copy: >
+    src=ubi dest=/usr/local/bin/ubi
+    owner=root group=root mode=0755
 # =========== CUSTOM ===============
 
 # mail autoconfiguration for thunderbird
