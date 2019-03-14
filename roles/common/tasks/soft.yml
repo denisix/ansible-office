@@ -97,9 +97,9 @@
     - pulseaudio
     - libreoffice
     - skypeforlinux
-    - python-pexpect # for HP printer setup
     - hplip
     - xsane # for HP printer scan mode
+    - python-ptyprocess # for HP
     - python-pexpect # for HP printer config (next)
     - snmp-mibs-downloader # for HP printer
     - xss-lock # to lock the screen
