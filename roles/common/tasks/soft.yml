@@ -97,6 +97,7 @@
     - pulseaudio
     - libreoffice
     - skypeforlinux
+    - python-pexpect # for HP printer setup
     - hplip
     - xsane # for HP printer scan mode
     - python-pexpect # for HP printer config (next)
