@@ -52,18 +52,18 @@
 - name: APT sources for xenial
   copy: >
     src=sources.list.xenial dest=/etc/apt/sources.list owner=root group=root mode=0644
-  notify: apt update
+  notify: apt clean
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
 
 - name: APT sources for bionic
   copy: >
     src=sources.list.bionic dest=/etc/apt/sources.list owner=root group=root mode=0644
-  notify: apt update
+  notify: apt clean
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
 
 - name: install apt key requirement - dirmngr
-  apt: pkg=dirmngr state=latest force=yes force=yes install_recommends=yes
+  apt: pkg=dirmngr state=present force=yes force=yes install_recommends=yes
 
 # deprecated: id={{ item }} keyserver=keyserver.ubuntu.com
 - name: install missing apt keys to solve NO_PUBKEY errors
