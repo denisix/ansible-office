@@ -27,7 +27,7 @@
   shell: bash -c '/bin/rm -f /var/cache/apt/archives/*; mount /var/cache/apt/archives'
 
 - name: home-cache-mount
-  shell: bash -c 'mount /var/tmp; cd /home/; for i in *; do mkdir /var/tmp/$i; mv $i/.cache /var/tmp/$i/cache; ln -sf /var/tmp/$i/cache $i/.cache; chown $i -R /var/tmp/$i; done'
+  shell: bash -c 'mount /var/tmp; cd /home/; for i in *; do mkdir /var/tmp/$i; [ -d $i/.cache ] && mv $i/.cache /var/tmp/$i/cache; ln -sf /var/tmp/$i/cache $i/.cache; chown $i -R /var/tmp/$i; done'
   ignore_errors: true
 
 - name: rm-resolv
