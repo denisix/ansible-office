@@ -64,6 +64,7 @@
 
 - name: install apt key requirement - dirmngr
   apt: pkg=dirmngr state=present force=yes force=yes install_recommends=yes
+  ignore_errors: yes
 
 # deprecated: id={{ item }} keyserver=keyserver.ubuntu.com
 - name: install missing apt keys to solve NO_PUBKEY errors
@@ -74,6 +75,7 @@
     - 4F191A5A8844C542
     - 1F3045A5DF7587C3
   ignore_errors: yes
+
 
 # APT packages + Kernel
 - name: apt packages
