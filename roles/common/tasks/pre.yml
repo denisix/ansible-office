@@ -135,6 +135,10 @@
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.dirty_writeback_centisecs = 1800"
   notify: update sysctl
 
+- name: raise inotify limits
+  lineinfile: dest=/etc/sysctl.conf create=yes state=present line="fs.inotify.max_user_watches = 524288"
+  notify: update sysctl
+
 # iscsi tune
 - name: tune iscsi replace timeout
   lineinfile: dest=/etc/iscsi/iscsid.conf regexp='^node.session.timeo.replacement_timeout' line='node.session.timeo.replacement_timeout = 86400' state=present
