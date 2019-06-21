@@ -64,6 +64,7 @@
 - name: install soft
   apt: name={{ item}} state=latest force=yes install_recommends=yes cache_valid_time=86400
   with_items:
+    - open-iscsi
     - mtr
     - dnsutils
     - atop
