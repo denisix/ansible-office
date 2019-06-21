@@ -62,54 +62,64 @@
 
 # Mass install
 - name: install soft
-  apt: name={{ item}} state=latest force=yes install_recommends=yes cache_valid_time=86400
-  with_items:
-    - open-iscsi
-    - mtr
-    - dnsutils
-    - atop
-    - xarchiver
-    - rar
-    - mplayer
-    - simple-scan
-    - firefox
-    - firefox-locale-ru
-    - thunderbird
-    - thunderbird-locale-ru
-    - chromium-browser
-    - pidgin
-    - pidgin-otr
-    - gxkb
-    - syncthing
-    - rdesktop
-    - language-pack-en
-    - language-pack-ru
-    - xournal
-    - qpdf
-    - gobby
-    - vlc
-    - pulseaudio
-    - libreoffice
-    - skypeforlinux
-    - hplip
-    - xsane # for HP printer scan mode
-    - python-ptyprocess # for HP
-    - python-pexpect # for HP printer config (next)
-    - snmp-mibs-downloader # for HP printer
-    - xss-lock # to lock the screen
-    - suckless-tools
-    - libnet-telnet-cisco-perl # for bgpview
+  apt:
+    name:
+      - open-iscsi
+      - mtr
+      - dnsutils
+      - atop
+      - xarchiver
+      - rar
+      - mplayer
+      - simple-scan
+      - firefox
+      - firefox-locale-ru
+      - thunderbird
+      - thunderbird-locale-ru
+      - chromium-browser
+      - pidgin
+      - pidgin-otr
+      - gxkb
+      - syncthing
+      - rdesktop
+      - language-pack-en
+      - language-pack-ru
+      - xournal
+      - qpdf
+      - gobby
+      - vlc
+      - pulseaudio
+      - libreoffice
+      - skypeforlinux
+      - hplip
+      - xsane # for HP printer scan mode
+      - python-ptyprocess # for HP
+      - python-pexpect # for HP printer config (next)
+      - snmp-mibs-downloader # for HP printer
+      - xss-lock # to lock the screen
+      - suckless-tools
+      - libnet-telnet-cisco-perl # for bgpview
+    state: latest
+    force: yes
+    install_recommends: yes
+    cache_valid_time: 86400
+    autoclean: yes
   ignore_errors: yes
 
 
 # Mass install for hosts not 'dt'
 - name: install soft
-  apt: name={{ item}} state=latest force=yes install_recommends=yes cache_valid_time=86400
-  with_items:
-    - psi-plus
-    - ubuntu-mate-core
-    - ubuntu-mate-desktop
-    - remmina
+  apt:
+    name:
+      - psi-plus
+      - ubuntu-mate-core
+      - ubuntu-mate-desktop
+      - remmina
+    state: latest
+    force: yes
+    install_recommends: yes
+    cache_valid_time: 86400
+    autoclean: yes
   ignore_errors: yes
   when: actual_hostname != "dt"
 
@@ -155,19 +165,20 @@
 
 # REMOVE soft
 - name: remove unneded soft
-  apt: name={{ item }} state=absent
-  with_items:
-    - at
-    - lvm2
-    - arpwatch
-    - smartmontools
-    - rsyslog
-    - eject
-    - kdegames-card-data-kf5
-    - man-db
-    - manpages
-    - libreoffice-help-ru
-    - libreoffice-help-en-us
+  apt:
+    state: absent
+    name: 
+      - at
+      - lvm2
+      - arpwatch
+      - smartmontools
+      - rsyslog
+      - eject
+      - kdegames-card-data-kf5
+      - man-db
+      - manpages
+      - libreoffice-help-ru
+      - libreoffice-help-en-us
 
 # Ring
 #- name: key for ring

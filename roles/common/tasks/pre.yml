@@ -79,8 +79,13 @@
 
 # APT packages + Kernel
 - name: apt packages
-  apt: pkg={{ item }} state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
-  with_items:
+  apt:
+    state: latest
+    cache_valid_time: 86400
+    force: yes
+    install_recommends: yes
+    update_cache: yes
+    name:
     - apt-transport-https
     - linux-headers-4.15.0-29-lowlatency
     - linux-image-4.15.0-29-lowlatency
