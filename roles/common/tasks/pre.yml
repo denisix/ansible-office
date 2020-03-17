@@ -35,6 +35,7 @@
 - name: force default dns - restart network manager
   service: name=network-manager state=restarted
   when: nm is changed
+  ignore_errors: yes
 
 - name: force default dns - write default resolver
   lineinfile: dest=/etc/resolv.conf create=yes state=present line="nameserver 172.16.5.1"
