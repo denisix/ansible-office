@@ -1,6 +1,6 @@
 ---
 - name: Install CPU freq tools
-  apt: pkg=cpufrequtils state=installed
+  apt: pkg=cpufrequtils state=present
 
 - name: default file for CPU freq
   lineinfile: dest=/etc/default/cpufrequtils state=present regexp='^GOVERNOR' line='GOVERNOR="performance"' create=yes
