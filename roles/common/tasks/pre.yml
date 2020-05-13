@@ -62,6 +62,12 @@
   notify: apt clean
   when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 
+- name: APT sources for disco
+  copy: >
+    src=sources.list.disco dest=/etc/apt/sources.list owner=root group=root mode=0644
+  notify: apt clean
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '19.04'
+
 
 - name: install apt key requirement - dirmngr
   apt: pkg=dirmngr state=present force=yes force=yes install_recommends=yes
