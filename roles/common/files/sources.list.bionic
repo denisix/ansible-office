@@ -1,11 +1,11 @@
-deb http://ua.archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse 
-deb http://ua.archive.ubuntu.com/ubuntu/ bionic-security main restricted universe multiverse 
-deb http://ua.archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse 
-deb http://ua.archive.ubuntu.com/ubuntu/ bionic-proposed main restricted universe multiverse 
-deb http://ua.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse 
-deb http://archive.canonical.com/ubuntu bionic partner
-deb-src http://archive.canonical.com/ubuntu bionic partner
+deb https://ua.archive.ubuntu.com/ubuntu/ bionic main restricted universe multiverse 
+deb https://ua.archive.ubuntu.com/ubuntu/ bionic-security main restricted universe multiverse 
+deb https://ua.archive.ubuntu.com/ubuntu/ bionic-updates main restricted universe multiverse 
+deb https://ua.archive.ubuntu.com/ubuntu/ bionic-proposed main restricted universe multiverse 
+deb https://ua.archive.ubuntu.com/ubuntu/ bionic-backports main restricted universe multiverse 
+deb https://archive.canonical.com/ubuntu bionic partner
+#deb-src https://archive.canonical.com/ubuntu bionic partner
 
 # additional:
-deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu bionic main
-deb http://ppa.launchpad.net/xorg-edgers/ppa/ubuntu bionic main
+# deb https://ppa.launchpad.net/nilarimogard/webupd8/ubuntu bionic main
+deb https://ppa.launchpad.net/xorg-edgers/ppa/ubuntu bionic main

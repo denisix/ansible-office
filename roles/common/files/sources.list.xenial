@@ -1,13 +1,13 @@
-deb http://ua.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse 
-deb http://ua.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse 
-deb http://ua.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse 
-deb http://ua.archive.ubuntu.com/ubuntu/ xenial-proposed main restricted universe multiverse 
-deb http://ua.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse 
-deb http://archive.canonical.com/ubuntu xenial partner
-deb-src http://archive.canonical.com/ubuntu xenial partner
+deb https://ua.archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse 
+deb https://ua.archive.ubuntu.com/ubuntu/ xenial-security main restricted universe multiverse 
+deb https://ua.archive.ubuntu.com/ubuntu/ xenial-updates main restricted universe multiverse 
+deb https://ua.archive.ubuntu.com/ubuntu/ xenial-proposed main restricted universe multiverse 
+deb https://ua.archive.ubuntu.com/ubuntu/ xenial-backports main restricted universe multiverse 
+deb https://archive.canonical.com/ubuntu xenial partner
+#deb-src https://archive.canonical.com/ubuntu xenial partner
 
 # additional:
-deb http://download.virtualbox.org/virtualbox/debian xenial contrib
-deb http://ppa.launchpad.net/nilarimogard/webupd8/ubuntu xenial main
-deb http://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu xenial main
-deb http://ppa.launchpad.net/xorg-edgers/ppa/ubuntu xenial main
+# deb https://download.virtualbox.org/virtualbox/debian xenial contrib
+# deb https://ppa.launchpad.net/nilarimogard/webupd8/ubuntu xenial main
+# deb https://ppa.launchpad.net/ubuntu-wine/ppa/ubuntu xenial main
+deb https://ppa.launchpad.net/xorg-edgers/ppa/ubuntu xenial main
