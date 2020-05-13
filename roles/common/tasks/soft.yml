@@ -112,8 +112,7 @@
   apt:
     name:
       - psi-plus
-      - ubuntu-mate-core
-      - ubuntu-mate-desktop
+      - mate-desktop
       - remmina
     state: latest
     force: yes

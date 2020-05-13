@@ -94,8 +94,8 @@
     update_cache: yes
     name:
     - apt-transport-https
-    - linux-headers-4.15.0-29-lowlatency
-    - linux-image-4.15.0-29-lowlatency
+    - linux-headers-generic
+    - linux-image-generic
     - linux-sound-base
   ignore_errors: yes
 
