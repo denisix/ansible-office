@@ -35,3 +35,6 @@
 
 - name: restart network-manager
   service: state=restarted name=network-manager
+
+- name: apt upgrade
+  apt: update_cache=yes upgrade=full force=yes allow_unauthenticated=yes
