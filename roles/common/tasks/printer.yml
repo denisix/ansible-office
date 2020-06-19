@@ -24,17 +24,20 @@
 - name: upload hp-plugin
   tags: hp
   copy: >
-    src=hplip-3.20.3-plugin.run dest=/var/lib/hplip.run owner=root group=root mode=0755
+    src={{ item }} dest=/var/lib/{{ item }} owner=root group=root mode=0755
+  with_items:
+    - hplip-3.20.3-plugin.run
+    - hplip-3.20.3-plugin.run.asc
 
 - name: update HP plugin
   tags: hp
   ignore_errors: yes
   expect:
-     command: /bin/bash -c "/usr/bin/hp-plugin -i"
+     command: /usr/bin/hp-plugin -i
      responses:
        re-install: y
        d=download: p
-       plugin: /var/lib/hplip.run
+       plugin: /var/lib/hplip-3.20.3-plugin.run
        still: y
        license: y
        Please enter 'd': d
