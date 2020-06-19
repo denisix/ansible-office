@@ -22,6 +22,7 @@
        license: y
 
 - name: upload hp-plugin
+  tags: hp
   copy: >
     src=hplip-3.20.3-plugin.run dest=/var/lib/hplip.run owner=root group=root mode=0755
 
