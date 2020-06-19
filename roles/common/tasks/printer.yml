@@ -13,7 +13,7 @@
 
 - name: need to configure HP printer
   ignore_errors: yes
-  when: hp_check is failed
+  #when: hp_check is failed
   tags: hp
   expect:
      command: /bin/bash -c "/usr/bin/hp-setup -i -a -x 172.16.5.20"
