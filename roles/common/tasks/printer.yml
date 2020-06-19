@@ -21,6 +21,10 @@
        download: d
        license: y
 
+- name: upload hp-plugin
+  copy: >
+    src=hplip-3.20.3-plugin.run dest=/var/lib/hplip.run owner=root group=root mode=0755
+
 - name: update HP plugin
   tags: hp
   ignore_errors: yes
@@ -28,7 +32,8 @@
      command: /bin/bash -c "/usr/bin/hp-plugin -i"
      responses:
        re-install: y
-       d=download: d
-       license: y
+       d=download: p
+       plugin: /var/lib/hplip.run
        still: y
+       license: y
        Please enter 'd': d
