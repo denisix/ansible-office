@@ -1,11 +1,15 @@
 ---
 # Printer HP setup
-- name: check if HP printer configured
+#- name: check if HP printer configured
+#  tags: hp
+#  shell: /bin/bash -c "/usr/bin/hp-probe -bcups 2>&1 | grep 172.16.5.20"
+#  register: hp_check
+#  ignore_errors: yes
+#  changed_when: false
+
+- name: remove all existing printers
   tags: hp
-  shell: /bin/bash -c "/usr/bin/hp-probe -bcups 2>&1 | grep 172.16.5.20"
-  register: hp_check
-  ignore_errors: yes
-  changed_when: false
+  shell: lpstat -s|awk '/:/{print $3}'|awk -F':' '{print "lpadmin -x "$1}'|sh
 
 - name: need to configure HP printer
   ignore_errors: yes
