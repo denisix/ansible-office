@@ -137,6 +137,11 @@
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="fs.inotify.max_user_watches = 524288"
   notify: update sysctl
 
+# temporary disable ipv6 per request
+- name: disable ipv6 temporary
+  lineinfile: dest=/etc/sysctl.conf create=yes state=present line="net.ipv6.conf.all.disable_ipv6 = 1"
+  notify: update sysctl
+
 # iscsi tune
 - name: tune iscsi replace timeout
   lineinfile: dest=/etc/iscsi/iscsid.conf regexp='^node.session.timeo.replacement_timeout' line='node.session.timeo.replacement_timeout = 86400' state=present
