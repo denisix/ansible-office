@@ -90,7 +90,6 @@
       - vlc
       - pulseaudio
       - libreoffice
-      - skypeforlinux
       - hplip
       - xsane # for HP printer scan mode
       - python-ptyprocess # for HP
