@@ -5,10 +5,6 @@
     src=bgpview dest=/usr/local/bin/bgpview
     owner=root group=root mode=0755
 
-# RocketChat desktop
-- name: rocketchat desktop
-  command: snap install rocketchat-desktop
-
 # Firefox
 - name: repo for firefox
   apt_repository: repo={{ item }} state=present
@@ -70,23 +66,18 @@
       - atop
       - xarchiver
       - rar
-      - mplayer
       - simple-scan
       - firefox
       - firefox-locale-ru
       - thunderbird
       - thunderbird-locale-ru
       - chromium-browser
-      - pidgin
-      - pidgin-otr
       - gxkb
-      - syncthing
       - rdesktop
       - language-pack-en
       - language-pack-ru
       - xournal
       - qpdf
-      - gobby
       - vlc
       - pulseaudio
       - libreoffice
@@ -110,7 +101,6 @@
 - name: install soft
   apt:
     name:
-      - psi-plus
       - mate-desktop
       - remmina
     state: latest
