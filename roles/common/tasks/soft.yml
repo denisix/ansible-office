@@ -60,6 +60,7 @@
 - name: install soft
   apt:
     name:
+      - sudo
       - open-iscsi
       - mtr
       - dnsutils
