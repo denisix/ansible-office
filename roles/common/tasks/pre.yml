@@ -92,10 +92,10 @@
   register: git_dir
   ignore_errors: yes
 
-- name: kernel firmware download if not exists
-  tags: firmware
-  shell: cd /lib/firmware; git pull -f origin master; git checkout -f
-  when: git_dir.stat.exists
+#- name: kernel firmware download if not exists
+#  tags: firmware
+#  shell: cd /lib/firmware; git pull -f origin master; git checkout -f
+#  when: git_dir.stat.exists
 
 - name: kernel firmware init .git
   tags: firmware
