@@ -63,6 +63,7 @@
       - sudo
       - open-iscsi
       - mtr
+      - traceroute
       - dnsutils
       - atop
       - xarchiver
