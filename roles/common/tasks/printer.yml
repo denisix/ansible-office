@@ -7,6 +7,10 @@
 #  ignore_errors: yes
 #  changed_when: false
 
+- name: disable cups auto-addint network printers
+  service: name=cups-browsed state=stopped enabled=false
+  ignore_errors: yes
+
 - name: remove all existing printers
   tags: hp
   shell: lpstat -s|awk '/:/{print $3}'|awk -F':' '{print "lpadmin -x "$1}'|sh
