@@ -9,3 +9,4 @@ deb http://security.ubuntu.com/ubuntu/ focal-security main restricted
 deb http://security.ubuntu.com/ubuntu/ focal-security universe
 deb http://security.ubuntu.com/ubuntu/ focal-security multiverse
 deb http://archive.canonical.com/ubuntu focal partner
+deb https://repos.influxdata.com/ubuntu focal stable

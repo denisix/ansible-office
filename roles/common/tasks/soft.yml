@@ -91,6 +91,7 @@
       - xss-lock # to lock the screen
       - suckless-tools
       - libnet-telnet-cisco-perl # for bgpview
+      - telegraf # monitoring & metrics
     state: latest
     force: yes
     install_recommends: yes
