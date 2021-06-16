@@ -92,6 +92,9 @@
       - suckless-tools
       - libnet-telnet-cisco-perl # for bgpview
       - telegraf # monitoring & metrics
+      - dropbear
+      - initramfs-tools
+      - busybox
     state: latest
     force: yes
     install_recommends: yes
