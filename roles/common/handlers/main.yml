@@ -11,9 +11,6 @@
 - name: restart cpufrequtils
   service: name=cpufrequtils state=restarted
 
-- name: restart fail2ban
-  service: name=fail2ban state=restarted
-
 - name: exec rc-local
   shell: /etc/rc.local
 

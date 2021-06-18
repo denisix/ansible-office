@@ -14,16 +14,6 @@
   apt: pkg=update-notifier-common state=present
   ignore_errors: true
 
-- name: install fail2ban
-  apt: pkg=fail2ban state=present
-  ignore_errors: true
-
-- name: fail2ban ssh enable with custom conf file
-  copy: >
-          src=fail2ban.local dest=/etc/fail2ban/jail.d/defaults-debian.conf
-          owner=root group=root mode=0644
-  notify: restart fail2ban
-
 - name: timezone to Europe/Vilnius
   file: src=/usr/share/zoneinfo/Europe/Vilnius dest=/etc/localtime state=link
 
