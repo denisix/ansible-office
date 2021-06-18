@@ -29,17 +29,6 @@
   notify: apt update
   ignore_errors: yes
 
-# Skype
-- name: skype repo
-  apt_repository: repo='deb [arch=amd64] https://repo.skype.com/deb stable main' state=present
-  notify: apt update
-  ignore_errors: yes
-
-- name: skype repo sign
-  apt_key: url=https://repo.skype.com/data/SKYPE-GPG-KEY state=present
-  notify: apt update
-  ignore_errors: yes
-
 # Mate
 - name: add repo for mate - xenial
   apt_repository: repo='ppa:ubuntu-mate-dev/xenial-mate' state=present
@@ -96,6 +85,7 @@
       - initramfs-tools
       - busybox
       - keepassx # password management
+      - skypeforlinux
     state: latest
     force: yes
     install_recommends: yes
