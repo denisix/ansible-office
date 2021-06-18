@@ -95,6 +95,7 @@
       - dropbear
       - initramfs-tools
       - busybox
+      - keepassx # password management
     state: latest
     force: yes
     install_recommends: yes
