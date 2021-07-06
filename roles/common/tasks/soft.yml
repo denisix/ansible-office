@@ -157,6 +157,9 @@
 - name: telegraf restart
   service: name=ssh state=restarted
 
+- name: telegraf sudoers
+  lineinfile: dest=/etc/sudoers.d/telegraf regexp='smartctl' line='telegraf ALL=(ALL) NOPASSWD:/usr/sbin/smartctl' state=present
+
 # dropbear-initramfs configuration
 - name: dropbear auth file
   copy: >
