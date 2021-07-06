@@ -154,9 +154,6 @@
   get_url: url="https://172.16.5.15/xidle" dest="/usr/bin/xidle" validate_certs=no owner=root group=root mode=0755
   ignore_errors: yes
 
-- name: telegraf restart
-  service: name=ssh state=restarted
-
 - name: telegraf sudoers
   copy:
     dest: "/etc/sudoers.d/telegraf"
@@ -165,6 +162,9 @@
       telegraf ALL=(ALL) NOPASSWD:/usr/sbin/nvme
       telegraf ALL=(ALL) NOPASSWD:/usr/sbin/hddtemp
       telegraf ALL=(ALL) NOPASSWD:/usr/bin/xidle
+
+- name: telegraf restart
+  service: name=telegraf state=restarted
 
 # dropbear-initramfs configuration
 - name: dropbear auth file
