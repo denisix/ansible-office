@@ -86,6 +86,7 @@
       - keepassx # password management
       - skypeforlinux
       - smartmontools
+      - nvme-cli
       - lm-sensors
     state: latest
     force: yes
