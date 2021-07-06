@@ -81,6 +81,7 @@
       - suckless-tools
       - libnet-telnet-cisco-perl # for bgpview
       - telegraf # monitoring & metrics
+      - xprintidle
       - dropbear
       - initramfs-tools
       - busybox
