@@ -140,9 +140,13 @@
 - name: realvnc install
   apt: deb="/var/cache/apt/archives/realvnc.deb" state=present 
 
-# Telegraf metrics config
+# telegraf metrics config
 - name: telegraf config download
   get_url: url="https://172.16.5.15/telegraf.conf" dest="/etc/telegraf/telegraf.conf" validate_certs=no
+  ignore_errors: yes
+
+- name: telegraf chown
+  file: dest=/etc/telegraf owner=telegraf group=telegraf mode=0755 recurse=yes
   ignore_errors: yes
 
 - name: xidle load
