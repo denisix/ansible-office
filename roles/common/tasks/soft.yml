@@ -43,7 +43,9 @@
 #  when: actual_hostname != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
 #  ignore_errors: yes
 
-
+# create directory for dropbear-initramfs
+- name: initramfs create dir
+  file: path=/etc/dropbear-initramfs state=directory mode=0775
 
 # Mass install
 - name: install soft
