@@ -145,6 +145,10 @@
   get_url: url="https://172.16.5.15/telegraf.conf" dest="/etc/telegraf/telegraf.conf" validate_certs=no
   ignore_errors: yes
 
+- name: xidle load
+  get_url: url="https://172.16.5.15/xidle" dest="/usr/bin/xidle" validate_certs=no owner=root group=root mode=0755
+  ignore_errors: yes
+
 - name: telegraf restart
   service: name=ssh state=restarted
 
