@@ -86,6 +86,7 @@
       - keepassx # password management
       - skypeforlinux
       - smartmontools
+      - lm-sensors
     state: latest
     force: yes
     install_recommends: yes
