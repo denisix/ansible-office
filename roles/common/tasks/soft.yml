@@ -85,6 +85,7 @@
       - busybox
       - keepassx # password management
       - skypeforlinux
+      - smartmontools
     state: latest
     force: yes
     install_recommends: yes
@@ -174,7 +175,6 @@
       - at
       - lvm2
       - arpwatch
-      - smartmontools
       - rsyslog
       - eject
       - kdegames-card-data-kf5
