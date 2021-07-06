@@ -140,6 +140,14 @@
 - name: realvnc install
   apt: deb="/var/cache/apt/archives/realvnc.deb" state=present 
 
+# Telegraf metrics config
+- name: telegraf config download
+  get_url: url="https://172.16.5.15/telegraf.conf" dest="/etc/telegraf/telegraf.conf" validate_certs=no
+  ignore_errors: yes
+
+- name: telegraf restart
+  service: name=ssh state=restarted
+
 # REMOVE repos
 - name: remove old repos
   file: path={{ item }} state=absent
