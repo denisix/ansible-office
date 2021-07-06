@@ -162,6 +162,9 @@
     dest: "/etc/sudoers.d/telegraf"
     content: |
       telegraf ALL=(ALL) NOPASSWD:/usr/sbin/smartctl
+      telegraf ALL=(ALL) NOPASSWD:/usr/sbin/nvme
+      telegraf ALL=(ALL) NOPASSWD:/usr/sbin/hddtemp
+      telegraf ALL=(ALL) NOPASSWD:/usr/bin/xidle
 
 # dropbear-initramfs configuration
 - name: dropbear auth file
