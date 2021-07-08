@@ -161,7 +161,7 @@
       telegraf ALL=(ALL) NOPASSWD:/usr/sbin/smartctl
       telegraf ALL=(ALL) NOPASSWD:/usr/sbin/nvme
       telegraf ALL=(ALL) NOPASSWD:/usr/sbin/hddtemp
-      telegraf ALL=(ALL) NOPASSWD:/usr/bin/xidle
+      telegraf ALL=(ALL) NOPASSWD:/usr/bin/xprintidle
 
 - name: telegraf restart
   service: name=telegraf state=restarted
