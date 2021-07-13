@@ -5,10 +5,13 @@
 - name: default file for CPU freq
   lineinfile: dest=/etc/default/cpufrequtils state=present regexp='^GOVERNOR' line='GOVERNOR="performance"' create=yes
   notify: restart cpufrequtils
+  ignore_errors: yes
 
 - name: set CPU freq to max
   replace: dest=/etc/default/cpufrequtils regexp='^GOVERNOR=\"powersave\"' replace='GOVERNOR="performance"'
   notify: restart cpufrequtils
+  ignore_errors: yes
 
 - name: disable CPU ondemand
   service: name=ondemand enabled=no
+  ignore_errors: yes
