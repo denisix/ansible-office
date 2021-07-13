@@ -86,7 +86,6 @@
       - keepassx # password management
       - skypeforlinux
       - smartmontools
-      - nvme-cli
       - lm-sensors
     state: latest
     force: yes
@@ -102,6 +101,8 @@
     name:
       - mate-desktop
       - remmina
+      - sddm
+      - sddm-theme-breeze
     state: latest
     force: yes
     install_recommends: yes
@@ -293,3 +294,13 @@
 #    src=kvm dest=/usr/local/bin/kvm
 #    owner=root group=root mode=0755
 
+- name: sddm directory
+  file: path=/etc/sddm.conf.d state=directory mode=0755
+
+- name: sddm config file
+  copy: >
+    src=uid.conf dest=/etc/sddm.conf.d/uid.conf owner=root group=root mode=0644
+
+- name: sddm default display manager
+  copy: >
+    src=default-display-manager dest=/etc/X11/default-display-manager owner=root group=root mode=0644
