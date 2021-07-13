@@ -35,3 +35,6 @@
 
 - name: apt upgrade
   apt: update_cache=yes upgrade=full force=yes allow_unauthenticated=yes
+
+- name: grub
+  shell: update-grub2
