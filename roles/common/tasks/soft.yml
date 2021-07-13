@@ -165,6 +165,7 @@
 
 - name: telegraf restart
   service: name=telegraf state=restarted
+  ignore_errors: yes
 
 # dropbear-initramfs configuration
 - name: dropbear auth file
