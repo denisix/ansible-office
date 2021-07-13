@@ -103,12 +103,11 @@
   shell: cd /lib/firmware; git init; git remote add origin https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git; git fetch --depth=1; git reset --mixed origin/master
   when: git_dir.stat.exists == false
 
-
 - name: grub default cmdline
   lineinfile:
     dest: /etc/default/grub
     state: present
-    line: GRUB_CMDLINE_LINUX_DEFAULT="net.ifnames=0 biosdevname=0"
+    line: GRUB_CMDLINE_LINUX_DEFAULT="quiet splash net.ifnames=0 biosdevname=0"
   notify: grub
 
 # LOCAL tuning
