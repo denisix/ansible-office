@@ -80,7 +80,6 @@
       - libnet-telnet-cisco-perl # for bgpview
       - telegraf # monitoring & metrics
       - xprintidle
-      - dropbear
       - initramfs-tools
       - busybox
       - keepassx # password management
@@ -168,17 +167,6 @@
   service: name=telegraf state=restarted
   ignore_errors: yes
 
-# dropbear-initramfs configuration
-- name: dropbear auth file
-  copy: >
-    src=auth dest=/etc/dropbear-initramfs/authorized_keys owner=root group=root mode=0600
-
-- name: dropbear start config
-  lineinfile: dest=/etc/default/dropbear regexp='^NO_START=1' line='NO_START=0' state=present
-
-- name: dropbear only keyauth
-  lineinfile: dest=/etc/default/dropbear regexp='^DROPBEAR_EXTRA_ARGS=$' line='DROPBEAR_EXTRA_ARGS=-s' state=present
-
 # REMOVE repos
 - name: remove old repos
   file: path={{ item }} state=absent
@@ -203,6 +191,8 @@
       - manpages
       - libreoffice-help-ru
       - libreoffice-help-en-us
+      - dropbear
+      - dropbear-initramfs
 
 # Ring
 #- name: key for ring

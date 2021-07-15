@@ -167,9 +167,6 @@
   lineinfile: dest=/etc/iscsi/iscsid.conf regexp='^node.conn\[0\].timeo.noop_out_timeout' line='node.conn[0].timeo.noop_out_timeout = 1800' state=present
   ignore_errors: yes
 
-- name: create dir for dropbear-initramfs
-  file: path=/etc/dropbear-initramfs state=directory mode=0775
-
 # DRIVERS
 #- name: nvidia
 #  apt: pkg={{ item }} state=latest cache_valid_time=86400 force=yes install_recommends=yes update_cache=yes
