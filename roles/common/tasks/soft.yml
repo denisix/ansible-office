@@ -110,6 +110,13 @@
   ignore_errors: yes
   when: actual_hostname != "dt"
 
+# SNAP install
+- name: snap install
+  snap:
+    name:
+      - telegram-desktop
+      - chromium
+
 #- name: install unetbootin
 #  apt: name=unetbootin state=latest force=yes install_recommends=yes cache_valid_time=86400
 #  ignore_errors: yes
