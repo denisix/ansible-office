@@ -67,7 +67,6 @@
       - language-pack-ru
       - xournal
       - qpdf
-      - vlc
       - pulseaudio
       - libreoffice
       - hplip
@@ -86,6 +85,7 @@
       - skypeforlinux
       - smartmontools
       - lm-sensors
+      - localepurge
     state: latest
     force: yes
     install_recommends: yes
@@ -200,6 +200,9 @@
       - libreoffice-help-en-us
       - dropbear
       - dropbear-initramfs
+      - ubuntu-touch-sounds
+      - network-manager-pptp
+      - pptp-linux
 
 # Ring
 #- name: key for ring
