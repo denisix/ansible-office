@@ -144,6 +144,14 @@
   lineinfile: dest=/etc/sysctl.conf create=yes state=present line="fs.inotify.max_user_watches = 524288"
   notify: update sysctl
 
+- name: raise vm.admin_reserver limit to 512M for desktop
+  lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.admin_reserve_kbytes = 524288"
+  notify: update sysctl
+
+- name: enable OOM to kill the memory-intensive task
+  lineinfile: dest=/etc/sysctl.conf create=yes state=present line="vm.oom_kill_allocating_task = 1"
+  notify: update sysctl
+
 # temporary disable ipv6 per request (due to lack of ipv6 from local isp)
 - name: disable ipv6 networking
   sysctl: name={{ item }} value=1 state=present reload=yes
