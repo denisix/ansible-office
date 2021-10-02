@@ -31,7 +31,7 @@
 
 # Riot Element
 - name: element key
-  apt-key:
+  apt_key:
     url: https://packages.riot.im/debian/riot-im-archive-keyring.gpg
     keyring: /usr/share/keyrings/riot-im-archive-keyring.gpg 
     state: present
