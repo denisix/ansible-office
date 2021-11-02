@@ -46,7 +46,6 @@
 - name: add repo for mate - xenial
   apt_repository: repo='ppa:ubuntu-mate-dev/xenial-mate' state=present
   notify: apt update
-  when: actual_hostname != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
   ignore_errors: yes
 
 # hmm.. no such repo for bionic
@@ -122,7 +121,6 @@
     cache_valid_time: 86400
     autoclean: yes
   ignore_errors: yes
-  when: actual_hostname != "dt"
 
 # SNAP install
 - name: snap install
