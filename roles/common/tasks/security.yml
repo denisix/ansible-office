@@ -73,3 +73,13 @@
   copy: >
     src=autolock.desktop dest=/usr/share/mate/autostart/autolock.desktop
     owner=root group=root mode=0755
+
+- name: dconf keyboard layouts
+  dconf:
+    key: "/org/mate/desktop/peripherals/keyboard/kbd/layouts"
+    value: "['us', 'ru']"
+
+- name: dconf keyboard layout change
+  dconf:
+    key: "/org/mate/desktop/peripherals/keyboard/kbd/options"
+    value: "['grp_led\tgrp_led:scroll', 'grp\tgrp:ctrl_shift_toggle']"
