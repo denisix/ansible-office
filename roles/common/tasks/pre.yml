@@ -49,6 +49,10 @@
   copy: >
     src=ansible-pull dest=/etc/cron.d/ansible-pull owner=root group=root mode=0644
 
+- name: fix dpkg
+  shell: dpkg --configure -a
+  ignore_errors: yes
+
 # APT force to new repo
 - name: APT sources
   copy: >
@@ -86,6 +90,13 @@
     - linux-image-generic
     - linux-sound-base
   ignore_errors: yes
+
+# APT upgrade packages
+- name: update and upgrade apt packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400 # 1 day
 
 # FIRMWARE
 - name: kernel firmware check
