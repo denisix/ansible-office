@@ -38,7 +38,7 @@
 
 - name: disable printer autodiscover via avahi
   tags: printer
-  ini_file: dest=/etc/avahi/avahi-daemon.conf section=server option=enable-dbus value=no backup=yes
+  replace: dest=/etc/avahi/avahi-daemon.conf regexp='^#enable-dbus=yes' replace='enable-dbus=no'
   notify: restart avahi
   ignore_errors: yes
 
