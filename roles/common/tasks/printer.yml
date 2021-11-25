@@ -30,9 +30,16 @@
   notify: restart cupsbrowsed
   ignore_errors: yes
 
-- name: disable printer autodiscover
+- name: disable printer autodiscover via cups browsed
   tags: printer
   replace: dest=/etc/cups/cups-browsed.conf regexp='^# BrowseProtocols none' replace='BrowseProtocols none'
   notify: restart cupsbrowsed
   ignore_errors: yes
+
+- name: disable printer autodiscover via avahi
+  tags: printer
+  lineinfile: dest=/etc/avahi/avahi-daemon.conf line='enable-dbus=no' state=present
+  notify: restart avahi
+  ignore_errors: yes
+
 

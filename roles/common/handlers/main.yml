@@ -41,3 +41,6 @@
 
 - name: restart cupsbrowsed
   service: state=restarted name=cups-browsed
+
+- name: restart avahi
+  service: state=restarted name=avahi-daemon
