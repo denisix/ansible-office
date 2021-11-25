@@ -6,6 +6,9 @@
   ignore_errors: yes
   changed_when: false
 
+- debug:
+    var: printer_check
+
 - name: disable cups auto-addint network printers
   service: name=cups-browsed state=stopped enabled=false
   ignore_errors: yes
