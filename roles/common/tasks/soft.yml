@@ -48,13 +48,6 @@
   notify: apt update
   ignore_errors: yes
 
-# hmm.. no such repo for bionic
-#- name: add repo for mate - bionic
-#  apt_repository: repo='ppa:ubuntu-mate-dev/bionic-mate' state=present
-#  notify: apt update
-#  when: actual_hostname != "dt" and ansible_distribution == 'Ubuntu' and ansible_distribution_version == '18.04'
-#  ignore_errors: yes
-
 # Mass install
 - name: install soft
   apt:
@@ -98,7 +91,7 @@
       - smartmontools
       - lm-sensors
       - localepurge
-      - element-desktop
+      - telegram-desktop
     state: latest
     force: yes
     install_recommends: yes
@@ -126,7 +119,6 @@
 - name: snap install
   snap:
     name:
-      - telegram-desktop
       - chromium
 
 #- name: install unetbootin
@@ -214,95 +206,7 @@
       - ubuntu-touch-sounds
       - network-manager-pptp
       - pptp-linux
-
-# Ring
-#- name: key for ring
-#  apt_key:
-#    keyserver: pgp.mit.edu
-#    id: A295D773307D25A33AE72F2F64CD5FA175348F84
-#  ignore_errors: yes
-
-#- name: repo for ring
-#  apt_repository: repo='deb https://dl.ring.cx/ring-nightly/ubuntu_16.04/ ring main' state=present
-#  notify: apt update
-#  ignore_errors: yes
-
-#- name: ring
-#  apt: name=ring state=latest force=yes install_recommends=yes
-#  ignore_errors: yes
-
-# Java
-#- name: java jre
-#  tags: java
-#  apt: name=default-jre state=latest cache_valid_time=86400 force=yes install_recommends=yes
-#  async: 900
-#  poll: 10
-#
-#- name: java jdk
-#  tags: java
-#  apt: name=default-jdk state=latest cache_valid_time=86400 force=yes install_recommends=yes
-#  async: 900
-#  poll: 10
-#
-#- name: IceD tea
-#  tags: java
-#  apt: name=icedtea-8-plugin state=latest cache_valid_time=86400 force=yes install_recommends=yes
-#
-#- name: set licence selected
-#  tags: java
-#  shell: /bin/echo debconf shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-#
-#- name: set licence seen
-#  tags: java
-#  shell: /bin/echo debconf shared/accepted-oracle-license-v1-1 seen true | /usr/bin/debconf-set-selections
-#
-#- name: oracle java repo
-#  tags: java
-#  apt_repository: repo='ppa:webupd8team/java' state=present
-#  notify: apt update
-#
-#- name: oracle java 8
-#  tags: java
-#  apt: name=oracle-java8-installer state=latest cache_valid_time=86400 force=yes install_recommends=yes
-#
-#- name: oracle java 8 set default
-#  tags: java
-#  apt: name=oracle-java8-set-default state=latest cache_valid_time=86400 force=yes install_recommends=yes
-#
-#- name: java 8 security file
-#  tags: java
-#  copy: >
-#    src=java.security dest=/etc/java-8-oracle/security/java.security
-#    owner=root group=root mode=0644
-#
-#- name: java icedtea security file
-#  tags: java
-#  copy: >
-#    src=java.security dest=/etc/java-8-openjdk/security/java.security
-#    owner=root group=root mode=0644
-#
-#- name: java exceptions whitelist
-#  tags: java
-#  shell: >
-#    awk -F\: '/home/{if ($3>999) {print $6}}' /etc/passwd
-#  changed_when: false
-#  register: user_home
-#
-#- name: java make execption directory
-#  tags: java
-#  file: path={{user_home.stdout}}/.java/deployment/security/ state=directory mode=0775 recurse=yes
-#
-#- name: exception copy to home
-#  tags: java
-#  copy: >
-#    src=exception.sites dest={{user_home.stdout}}/.java/deployment/security/exception.sites
-#    owner=root group=root mode=0644
-#
-#- name: kvm script
-#  tags: java
-#  copy: >
-#    src=kvm dest=/usr/local/bin/kvm
-#    owner=root group=root mode=0755
+      - element-desktop
 
 - name: sddm directory
   file: path=/etc/sddm.conf.d state=directory mode=0755

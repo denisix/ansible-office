@@ -1,47 +1,28 @@
 ---
-# Printer HP setup
-#- name: check if HP printer configured
-#  tags: hp
-#  shell: /bin/bash -c "/usr/bin/hp-probe -bcups 2>&1 | grep 172.16.5.20"
-#  register: hp_check
-#  ignore_errors: yes
-#  changed_when: false
+- name: check if printer configured
+  tags: printer
+  shell: lpstat -d | grep Kyocera
+  register: printer_check
+  ignore_errors: yes
+  changed_when: false
 
 - name: disable cups auto-addint network printers
   service: name=cups-browsed state=stopped enabled=false
   ignore_errors: yes
 
 - name: remove all existing printers
-  tags: hp
+  tags: printer
+  when: printer_check is failed
   shell: lpstat -s|awk '/:/{print $3}'|awk -F':' '{print "lpadmin -x "$1}'|sh
 
-- name: need to configure HP printer
+- name: configure Kyocera MFP
+  tags: printer
+  when: printer_check is failed
   ignore_errors: yes
-  #when: hp_check is failed
-  tags: hp
-  expect:
-     command: /bin/bash -c "/usr/bin/hp-setup -i -a -x 172.16.5.20"
-     responses:
-       download: d
-       license: y
-
-- name: upload hp-plugin
-  tags: hp
-  copy: >
-    src={{ item }} dest=/var/lib/{{ item }} owner=root group=root mode=0755
-  with_items:
-    - hplip-3.20.3-plugin.run
-    - hplip-3.20.3-plugin.run.asc
-
-- name: update HP plugin
-  tags: hp
+  shell: /usr/sbin/lpadmin -p Kyocera_ECOSYS_M2735dw -D Kyocera_ECOSYS_M2735dw -L Lab -E -v ipp://Kyocera%20ECOSYS%20M2735dw._ipp._tcp.local/
+  
+- name: configure Kyocera MFP as default
+  tags: printer
+  when: printer_check is failed
   ignore_errors: yes
-  expect:
-     command: /usr/bin/hp-plugin -i
-     responses:
-       re-install: y
-       d=download: p
-       plugin: /var/lib/hplip-3.20.3-plugin.run
-       still: y
-       license: y
-       Please enter 'd': d
+  shell: lpadmin -d Kyocera_ECOSYS_M2735dw
