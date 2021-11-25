@@ -6,14 +6,6 @@
   ignore_errors: yes
   # changed_when: false
 
-- name: debug
-  debug:
-    var: printer_check
-
-- name: disable cups auto-addint network printers
-  service: name=cups-browsed state=stopped enabled=false
-  ignore_errors: yes
-
 - name: remove all existing printers
   tags: printer
   when: printer_check.stdout == ""
@@ -23,10 +15,24 @@
   tags: printer
   when: printer_check.stdout == ""
   ignore_errors: yes
-  shell: /usr/sbin/lpadmin -p Kyocera_ECOSYS_M2735dw -D Kyocera_ECOSYS_M2735dw -L Lab -E -v ipp://Kyocera%20ECOSYS%20M2735dw._ipp._tcp.local/
+  shell: /usr/sbin/lpadmin -p Kyocera_ECOSYS_M2735dw -D Kyocera_ECOSYS_M2735dw -L Work -E -v ipp://Kyocera%20ECOSYS%20M2735dw._ipp._tcp.local/
   
 - name: configure Kyocera MFP as default
   tags: printer
   when: printer_check.stdout == ""
   ignore_errors: yes
   shell: lpadmin -d Kyocera_ECOSYS_M2735dw
+
+- name: disable printer autodiscover
+  tags: printer
+  replace: dest=/etc/cups/cups-browsed.conf regexp='^# BrowseProtocols none' replace='BrowseProtocols none'
+  when: printer_check.stdout == ""
+  notify: restart cups
+  ignore_errors: yes
+
+- name: disable cups auto-addint network printers
+  tags: printer
+  when: printer_check.stdout == ""
+  service: name=cups-browsed state=restarted enabled=true
+  notify: restart cups-browsed
+  ignore_errors: yes
