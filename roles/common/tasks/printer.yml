@@ -4,7 +4,7 @@
   shell: "lpstat -d 2>&1 | grep Kyocera"
   register: printer_check
   ignore_errors: yes
-  changed_when: false
+  #changed_when: false
 
 - name: debug
   debug:
