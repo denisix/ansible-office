@@ -16,17 +16,17 @@
 
 - name: remove all existing printers
   tags: printer
-  when: printer_check is failed
+  when: printer_check.changed
   shell: lpstat -s|awk '/:/{print $3}'|awk -F':' '{print "lpadmin -x "$1}'|sh
 
 - name: configure Kyocera MFP
   tags: printer
-  when: printer_check is failed
+  when: printer_check.changed
   ignore_errors: yes
   shell: /usr/sbin/lpadmin -p Kyocera_ECOSYS_M2735dw -D Kyocera_ECOSYS_M2735dw -L Lab -E -v ipp://Kyocera%20ECOSYS%20M2735dw._ipp._tcp.local/
   
 - name: configure Kyocera MFP as default
   tags: printer
-  when: printer_check is failed
+  when: printer_check.changed
   ignore_errors: yes
   shell: lpadmin -d Kyocera_ECOSYS_M2735dw
