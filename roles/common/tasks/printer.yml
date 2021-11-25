@@ -23,16 +23,16 @@
   ignore_errors: yes
   shell: lpadmin -d Kyocera_ECOSYS_M2735dw
 
-- name: disable printer autodiscover
-  tags: printer
-  replace: dest=/etc/cups/cups-browsed.conf regexp='^# BrowseProtocols none' replace='BrowseProtocols none'
-  when: printer_check.stdout == ""
-  notify: restart cups
-  ignore_errors: yes
-
 - name: disable cups auto-addint network printers
   tags: printer
   when: printer_check.stdout == ""
   service: name=cups-browsed state=restarted enabled=true
-  notify: restart cups-browsed
+  notify: restart cupsbrowsed
   ignore_errors: yes
+
+- name: disable printer autodiscover
+  tags: printer
+  replace: dest=/etc/cups/cups-browsed.conf regexp='^# BrowseProtocols none' replace='BrowseProtocols none'
+  notify: restart cupsbrowsed
+  ignore_errors: yes
+

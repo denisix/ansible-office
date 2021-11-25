@@ -39,5 +39,5 @@
 - name: grub
   shell: update-grub2
 
-- name: restart cups-browsed
+- name: restart cupsbrowsed
   service: state=restarted name=cups-browsed
