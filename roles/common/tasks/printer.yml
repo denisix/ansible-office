@@ -11,9 +11,11 @@
   shell: lpstat -s|awk '/:/{print $3}'|awk -F':' '{print "lpadmin -x "$1}'|sh
 
 - name: kyocera ppd folder
+  tags: printer
   file: path=/usr/share/ppd/kyocera state=directory
   
 - name: install kyocera driver
+  tags: printer
   copy: >
     src=Kyocera_ECOSYS_M2735dw.ppd dest=/usr/share/ppd/kyocera/Kyocera_ECOSYS_M2735dw.ppd owner=root group=root mode=0644
 
