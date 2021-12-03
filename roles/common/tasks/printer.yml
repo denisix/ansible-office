@@ -33,6 +33,11 @@
   tags: printer
   shell: dpkg -i /tmp/kyodialog_9.0-0_amd64.deb
 
+- name: kyocera driver PPD install
+  tags: printer
+  copy: >
+    src=Kyocera_ECOSYS_M2735dw.ppd dest=/usr/share/ppd/kyocera/Kyocera_ECOSYS_M2735dw.ppd owner=root group=root mode=0644
+
 - name: configure Kyocera MFP
   tags: printer
   when: printer_check.stdout == ""
