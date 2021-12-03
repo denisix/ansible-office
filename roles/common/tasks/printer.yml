@@ -1,7 +1,7 @@
 ---
 - name: check if printer configured
   tags: printer
-  shell: "lpstat -d | grep Kyocera"
+  shell: "lpstat -d | grep Kyocera1"
   register: printer_check
   ignore_errors: yes
 
@@ -10,11 +10,18 @@
   when: printer_check.stdout == ""
   shell: lpstat -s|awk '/:/{print $3}'|awk -F':' '{print "lpadmin -x "$1}'|sh
 
+- name: kyocera ppd folder
+  file: path=/usr/share/ppd/kyocera state=directory
+  
+- name: install kyocera driver
+  copy: >
+    src=Kyocera_ECOSYS_M2735dw.ppd dest=/usr/share/ppd/kyocera/Kyocera_ECOSYS_M2735dw.ppd owner=root group=root mode=0644
+
 - name: configure Kyocera MFP
   tags: printer
   when: printer_check.stdout == ""
   ignore_errors: yes
-  shell: /usr/sbin/lpadmin -p Kyocera_ECOSYS_M2735dw -D Kyocera_ECOSYS_M2735dw -L Work -E -v socket://172.16.5.21
+  shell: /usr/sbin/lpadmin -p Kyocera_ECOSYS_M2735dw -D Kyocera_ECOSYS_M2735dw -L Work -E -v socket://172.16.5.21 -P /usr/share/ppd/kyocera/Kyocera_ECOSYS_M2735dw.ppd
   
 - name: configure Kyocera MFP as default
   tags: printer
