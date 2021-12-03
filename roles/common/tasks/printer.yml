@@ -1,7 +1,7 @@
 ---
 - name: check if printer configured
   tags: printer
-  shell: "lpstat -d | grep Kyocera123"
+  shell: "lpstat -d | grep Kyocera"
   register: printer_check
   ignore_errors: yes
 
