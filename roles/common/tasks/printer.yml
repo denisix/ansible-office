@@ -11,17 +11,21 @@
   shell: lpstat -s|awk '/:/{print $3}'|awk -F':' '{print "lpadmin -x "$1}'|sh
 
 - name: kyocera sane package copy
+  tags: printer
   copy: >
     src=kyocera-sane_2.0.1923_amd64.deb dest=/tmp/kyocera-sane_2.0.1923_amd64.deb owner=root group=root mode=0644
 
 - name: kyocera sane package install
+  tags: printer
   shell: dpkg -i /tmp/kyocera-sane_2.0.1923_amd64.deb
 
 - name: kyocera driver package copy
+  tags: printer
   copy: >
     src=kyodialog_9.0-0_amd64.deb dest=/tmp/kyodialog_9.0-0_amd64.deb owner=root group=root mode=0644
 
 - name: kyocera driver package install
+  tags: printer
   shell: dpkg -i /tmp/kyodialog_9.0-0_amd64.deb
 
 - name: configure Kyocera MFP
