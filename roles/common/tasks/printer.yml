@@ -4,7 +4,7 @@
   shell: "lpstat -d | grep Kyocera"
   register: printer_check
   ignore_errors: yes
-  # changed_when: false
+  changed_when: false
 
 - name: remove all existing printers
   tags: printer
@@ -15,7 +15,7 @@
   tags: printer
   when: printer_check.stdout == ""
   ignore_errors: yes
-  shell: /usr/sbin/lpadmin -p Kyocera_ECOSYS_M2735dw -D Kyocera_ECOSYS_M2735dw -L Work -E -v ipp://Kyocera%20ECOSYS%20M2735dw._ipp._tcp.local/
+  shell: /usr/sbin/lpadmin -p Kyocera_ECOSYS_M2735dw -D Kyocera_ECOSYS_M2735dw -L Work -E -v socket://172.16.5.21
   
 - name: configure Kyocera MFP as default
   tags: printer
