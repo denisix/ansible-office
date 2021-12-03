@@ -15,6 +15,11 @@
   copy: >
     src=kyocera-sane_2.0.1923_amd64.deb dest=/tmp/kyocera-sane_2.0.1923_amd64.deb owner=root group=root mode=0644
 
+- name: kyocera deps install
+  tags: printer
+  apt: pkg=python3-setuptools state=present force=yes force=yes install_recommends=yes
+  ignore_errors: yes
+
 - name: kyocera sane package install
   tags: printer
   shell: dpkg -i /tmp/kyocera-sane_2.0.1923_amd64.deb
