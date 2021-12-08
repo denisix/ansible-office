@@ -91,7 +91,6 @@
       - smartmontools
       - lm-sensors
       - localepurge
-      - telegram-desktop
     state: latest
     force: yes
     install_recommends: yes
@@ -120,6 +119,7 @@
   snap:
     name:
       - chromium
+      - telegram-desktop
 
 #- name: install unetbootin
 #  apt: name=unetbootin state=latest force=yes install_recommends=yes cache_valid_time=86400
@@ -207,6 +207,7 @@
       - network-manager-pptp
       - pptp-linux
       - element-desktop
+      - telegram-desktop
 
 - name: sddm directory
   file: path=/etc/sddm.conf.d state=directory mode=0755
