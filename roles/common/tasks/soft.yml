@@ -29,19 +29,6 @@
   notify: apt update
   ignore_errors: yes
 
-# Riot Element
-- name: element key
-  apt_key:
-    url: https://packages.riot.im/debian/riot-im-archive-keyring.gpg
-    keyring: /usr/share/keyrings/riot-im-archive-keyring.gpg 
-    state: present
-
-- name: repo for element
-  apt_repository: repo='deb [signed-by=/usr/share/keyrings/riot-im-archive-keyring.gpg] https://packages.riot.im/debian/ default main' state=present
-  notify: apt update
-  ignore_errors: yes
-
-
 # Mate
 - name: add repo for mate - xenial
   apt_repository: repo='ppa:ubuntu-mate-dev/xenial-mate' state=present
