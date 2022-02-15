@@ -15,26 +15,6 @@
     - ppa:ubuntu-mozilla-security/ppa
   ignore_errors: yes
 
-# syncthing repos
-- name: syncthing key
-  apt_key:
-    url: https://syncthing.net/release-key.txt
-    state: present
-  ignore_errors: yes
-
-- name: syncthing repo
-  apt_repository:
-    repo: deb https://apt.syncthing.net/ syncthing stable
-    state: present
-  notify: apt update
-  ignore_errors: yes
-
-# Mate
-- name: add repo for mate - xenial
-  apt_repository: repo='ppa:ubuntu-mate-dev/xenial-mate' state=present
-  notify: apt update
-  ignore_errors: yes
-
 # Mass install
 - name: install soft
   apt:
