@@ -91,7 +91,7 @@
       - smartmontools
       - lm-sensors
       - localepurge
-    state: latest
+    state: present
     force: yes
     install_recommends: yes
     cache_valid_time: 86400

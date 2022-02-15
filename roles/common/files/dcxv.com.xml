@@ -12,8 +12,8 @@
     </incomingServer>
     <outgoingServer type="smtp">
       <hostname>dcxv.com</hostname>
-      <port>1587</port>
-      <socketType>STARTTLS</socketType>
+      <port>1465</port>
+      <socketType>SSL</socketType>
       <authentication>plain</authentication>
       <username>%EMAILADDRESS%</username>
     </outgoingServer>
