@@ -61,7 +61,6 @@
       - qpdf
       - pulseaudio
       - libreoffice
-      - hplip
       - xsane # for HP printer scan mode
       - python-ptyprocess # for HP
       - python-pexpect # for HP printer config (next)
@@ -195,6 +194,7 @@
       - pptp-linux
       - element-desktop
       - telegram-desktop
+      - hplip
 
 - name: sddm directory
   file: path=/etc/sddm.conf.d state=directory mode=0755
