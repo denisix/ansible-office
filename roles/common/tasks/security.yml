@@ -45,12 +45,6 @@
   include: fstab-opts.yml point=/ opts=discard,errors=remount-ro,noatime,nodiratime,commit=600
   notify: remount-all
 
-- name: clean man-db daily tasks
-  file: path=/etc/cron.daily/man-db state=absent
-
-- name: clean man-db weekly tasks
-  file: path=/etc/cron.weekly/man-db state=absent
-
 - name: check browsers default conf dir
   file: path={{ item }} state=directory
   with_items:

@@ -116,7 +116,7 @@
   ignore_errors: yes
 
 - name: realvnc install
-  apt: deb="/var/cache/apt/archives/realvnc.deb" state=present 
+  apt: deb="/var/cache/apt/archives/realvnc.deb" state=present
 
 # telegraf metrics config
 - name: telegraf config download
@@ -157,14 +157,12 @@
 - name: remove unneded soft
   apt:
     state: absent
-    name: 
+    name:
       - at
       - lvm2
       - arpwatch
       - rsyslog
       - eject
-      - man-db
-      - manpages
       - libreoffice-help-ru
       - libreoffice-help-en-us
       - dropbear
